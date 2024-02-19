@@ -2,6 +2,8 @@
 
 import { z } from "zod";
 import { auth, signIn, signOut } from "@/auth";
+import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 
 const baseUrl = 'https://api.github.com';
 
@@ -22,12 +24,14 @@ const FormSchema = z.object({
   }),
 });
 
-const UpdateSchema = FormSchema.extend({
+const UpdateIssue = FormSchema.extend({
   issue_number: z.string({
     required_error: "Issue number is required",
     invalid_type_error: "Issue number must be a string",
   }),
 });
+
+const CloseIssue = UpdateIssue.omit({title: true, body: true});
 
 export type State = {
   errors?: {
@@ -145,6 +149,9 @@ export async function createIssue(prevState: State, formData: FormData) {
   });
   const data = await res.json();
   console.log("createIssue: ", data);
+  const { number } = data;
+  revalidatePath('/dashboard');
+  redirect(`/dashboard/${owner}/${repo}/${number}`);
   return data;
 }
 
@@ -156,7 +163,7 @@ export async function updateIssue(prevState: State, formData: FormData) {
     return [];
   }
   
-  const validationResult = UpdateSchema.safeParse(Object.fromEntries(formData.entries()));
+  const validationResult = UpdateIssue.safeParse(Object.fromEntries(formData.entries()));
   if (!validationResult.success) {
     return {
       errors: validationResult.error.flatten().fieldErrors,
@@ -178,5 +185,31 @@ export async function updateIssue(prevState: State, formData: FormData) {
   });
   const data = await res.json();
   console.log("updateIssue: ", data);
+  revalidatePath(`/dashboard/${owner}/${repo}/${issue_number}`);
+  redirect(`/dashboard/${owner}/${repo}/${issue_number}`);
   return data;
+}
+
+export async function closeIssue(owner: string, repo: string, issue_number: string) {
+  const session = await auth();
+  console.log(session);
+  if (!session?.access_token) {
+    console.error('No access token found');
+    return [];
+  }
+  
+  const res = await fetch(`${baseUrl}/repos/${owner}/${repo}/issues/${issue_number}`, {
+    method: 'PATCH',
+    headers: {
+      'X-GitHub-Api-Version': '2022-11-28',
+      Authorization: `Bearer ${session.access_token}`,
+      Accept: 'application/vnd.github+json'
+    },
+    body: JSON.stringify({
+      owner, repo, state: 'closed'
+    })
+  });
+  const data = await res.json();
+  console.log("closeIssue: ", data);
+  revalidatePath(`/dashboard/${owner}/${repo}/${issue_number}`);
 }

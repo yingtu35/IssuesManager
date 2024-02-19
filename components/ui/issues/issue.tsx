@@ -1,20 +1,21 @@
 import Markdown from "react-markdown";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { getIssue, closeIssue } from "@/app/lib/actions";
 
-export default function Issue({
+export default async function Issue({
   params, 
-  issue
 }: {
   params: {
     owner: string,
     repo: string,
     id: string
   },
-  issue: any
 }){
   const { owner, repo, id } = params;
+  const issue = await getIssue(owner, repo, id);
   const { title, body, state } = issue;
+  const closeIssueWithParams = closeIssue.bind(null, owner, repo, id);
   return (
     <>
       <div className="flex justify-between">
@@ -22,16 +23,16 @@ export default function Issue({
           <h1>Title: {title}</h1>
           <p>State: {state}</p>
         </div>
-        <div className="flex">
-          <Link href={`/dashboard/${owner}/${repo}/${id}/edit`} key={id}>
-            <Button disabled={state !== "open"}>Edit</Button>
-          </Link>
-          { state === "open" && (
-            <Link href={`/dashboard/${owner}/${repo}/${id}/close`} key={id}>
-              <Button className="bg-red-500 hover:bg-red-400">Close</Button>
+        { state === "open" && (
+          <div className="flex">
+            <Link href={`/dashboard/${owner}/${repo}/${id}/edit`} key={id}>
+              <Button disabled={state !== "open"}>Edit</Button>
             </Link>
-          )}
-        </div>
+            <form action={closeIssueWithParams}>
+              <Button className="bg-red-500 hover:bg-red-400">Close</Button>
+            </form>
+          </div>
+        )}
       </div>
       <br />
       <p>Body: </p>

@@ -1,4 +1,3 @@
-import { getIssue } from "@/app/lib/actions";
 import Breadcrumbs from "@/components/ui/issues/breadcrumbs";
 import Issue from "@/components/ui/issues/issue";
 
@@ -12,7 +11,6 @@ export default async function Page({
   }
 }) {
   const { owner, repo, id } = params;
-  const issue = await getIssue(owner, repo, id);
   return (
     <main>
       <Breadcrumbs
@@ -25,7 +23,7 @@ export default async function Page({
           },
         ]}
       />
-      <Issue params={params} issue={issue} />
+      <Issue params={params} />
     </main>
   )
 }

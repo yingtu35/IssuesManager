@@ -8,6 +8,7 @@ export const metadata: Metadata = {
 };
 
 // TODO: Add a layout component to wrap the content
+// TODO: Get comments for each issue in issue page
 export default async function Dashboard() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
