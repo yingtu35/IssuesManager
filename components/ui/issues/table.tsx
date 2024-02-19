@@ -1,4 +1,5 @@
 import { getIssues } from "@/app/lib/actions";
+import { formatDateToLocal } from "@/app/lib/utils";
 import Link from "next/link";
 
 // TODO: add query as props
@@ -10,12 +11,11 @@ export default async function FilteredIssuesTable() {
     <table>
       <thead>
         <tr>
-          <th>Title</th>
-          <th>State</th>
-          <th>Author</th>
-          <th>Created At</th>
-          <th>Link</th>
-          <th>Actions</th>
+          <th scope="col" className="px-4 py-5 font-medium">Title</th>
+          <th scope="col" className="px-4 py-5 font-medium">State</th>
+          {/* <th scope="col" className="px-4 py-5 font-medium">Author</th> */}
+          <th scope="col" className="px-4 py-5 font-medium">Created At</th>
+          <th scope="col" className="px-4 py-5 font-medium">Link</th>
         </tr>
       </thead>
       <tbody>
@@ -23,16 +23,11 @@ export default async function FilteredIssuesTable() {
             <tr key={issue.id}>
               <td>{issue.title}</td>
               <td>{issue.state}</td>
-              <td>{issue.user.login}</td>
-              <td>{issue.created_at}</td>
+              {/* <td>{issue.user.login}</td> */}
+              <td>{formatDateToLocal(issue.created_at)}</td>
               <td>
                 <Link href={`/dashboard/${issue.user.login}/${issue.repository.name}/${issue.number}`} key={issue.id}>
                   <p>View</p>
-                </Link>
-              </td>
-              <td>
-                <Link href={`/dashboard/${issue.user.login}/${issue.repository.name}/${issue.number}/edit`} key={issue.id}>
-                  <p>Edit</p>
                 </Link>
               </td>
             </tr>

@@ -1,6 +1,5 @@
 import Form from '@/components/ui/issues/edit-form';
 import Breadcrumbs from '@/components/ui/issues/breadcrumbs';
-import { SessionProvider } from 'next-auth/react';
 import { getIssue } from '@/app/lib/actions';
 import { Metadata } from 'next';
 import { auth } from "@/auth"
@@ -28,15 +27,17 @@ export default async function Page({
         breadcrumbs={[
           { label: 'Issues', href: '/dashboard' },
           {
-            label: 'Create Issue',
-            href: '/dashboard/create',
+            label: `${repo} #${id}`,
+            href: `/dashboard/${owner}/${repo}/${id}`,
+          },
+          {
+            label: 'Update Issue',
+            href: `/dashboard/${owner}/${repo}/${id}/edit`,
             active: true,
           },
         ]}
       />
-      <SessionProvider>
-        <Form repo={repo} issue={issue} />
-      </SessionProvider>
+      <Form params={params} issue={issue} />
     </main>
   );
 }

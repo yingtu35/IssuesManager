@@ -55,7 +55,7 @@ export async function getIssues() {
     return [];
   }
 
-  const res = await fetch(`${baseUrl}/issues?filter=all&state=open`, {
+  const res = await fetch(`${baseUrl}/issues?filter=all&state=all`, {
     method: 'GET',
     headers: {
       'X-GitHub-Api-Version': '2022-11-28',

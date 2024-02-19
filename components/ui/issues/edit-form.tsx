@@ -4,13 +4,17 @@ import Link from "next/link"
 import { updateIssue } from "@/app/lib/actions"
 import { useFormState } from "react-dom"
 export default function Form({
-  repo, 
+  params, 
   issue 
 }: { 
-  repo: string,
+  params: {
+    owner: string,
+    repo: string,
+    id: string
+  },
   issue: any 
 }){
-  const owner = issue?.user.login;
+  const { owner, repo, id } = params;
   const { title, body } = issue;
   const initialState = { message: null, error: {} };
   const [state, dispatch] = useFormState(updateIssue, initialState);
@@ -45,7 +49,7 @@ export default function Form({
             </option>
           </select>
           <input type="hidden" name="repo" value={repo} />
-          <input type="hidden" name="issue_number" value={issue.number} />
+          <input type="hidden" name="issue_number" value={id} />
         </div>
         <div id="repo-error" aria-live="polite" aria-atomic="true">
             {state.errors?.repo &&
@@ -95,7 +99,7 @@ export default function Form({
       </div>
       <div className="mt-6 flex justify-end gap-4">
         <Link
-            href="/dashboard"
+            href={`/dashboard/${owner}/${repo}/${id}`}
             className="flex h-10 items-center rounded-lg bg-gray-100 px-4 text-sm font-medium text-gray-600 transition-colors hover:bg-gray-200"
           >
             Cancel

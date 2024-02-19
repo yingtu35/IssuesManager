@@ -1,5 +1,6 @@
-import Markdown from "react-markdown";
 import { getIssue } from "@/app/lib/actions";
+import Breadcrumbs from "@/components/ui/issues/breadcrumbs";
+import Issue from "@/components/ui/issues/issue";
 
 export default async function Page({ 
   params 
@@ -13,12 +14,18 @@ export default async function Page({
   const { owner, repo, id } = params;
   const issue = await getIssue(owner, repo, id);
   return (
-    <div>
-      <h1>Title: {issue.title}</h1>
-      <p>State: {issue.state}</p>
-      <br />
-      <p>Body: </p>
-      <Markdown>{issue.body}</Markdown>
-    </div>
+    <main>
+      <Breadcrumbs
+        breadcrumbs={[
+          { label: 'Issues', href: '/dashboard' },
+          {
+            label: `${repo} #${id}`,
+            href: `/dashboard/${owner}/${repo}/${id}`,
+            active: true,
+          },
+        ]}
+      />
+      <Issue params={params} issue={issue} />
+    </main>
   )
 }
