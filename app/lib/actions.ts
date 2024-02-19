@@ -213,3 +213,24 @@ export async function closeIssue(owner: string, repo: string, issue_number: stri
   console.log("closeIssue: ", data);
   revalidatePath(`/dashboard/${owner}/${repo}/${issue_number}`);
 }
+
+export async function getIssueComments(owner: string, repo: string, issue_number: string) {
+  const session = await auth();
+  console.log(session);
+  if (!session?.access_token) {
+    console.error('No access token found');
+    return [];
+  }
+
+  const res = await fetch(`${baseUrl}/repos/${owner}/${repo}/issues/${issue_number}/comments`, {
+    method: 'GET',
+    headers: {
+      'X-GitHub-Api-Version': '2022-11-28',
+      Authorization: `Bearer ${session.access_token}`,
+      Accept: 'application/vnd.github+json'
+    }
+  });
+  const data = await res.json();
+  console.log("getIssueComments: ", data);
+  return data;
+}

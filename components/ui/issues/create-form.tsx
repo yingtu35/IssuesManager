@@ -6,8 +6,7 @@ import { useFormState } from "react-dom"
 export default function Form({ owner, repos }: { owner: string, repos: any[] }){
   const initialState = { message: null, error: {} };
   const [state, dispatch] = useFormState(createIssue, initialState);
-  // a form to create a new issue
-  // contains fields for owner, repo, title, body
+
   return (
     <form action={dispatch}>
       {/* Owner Name */}

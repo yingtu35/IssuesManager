@@ -1,7 +1,7 @@
 import Markdown from "react-markdown";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { getIssue, closeIssue } from "@/app/lib/actions";
+import { getIssue, closeIssue, getIssueComments } from "@/app/lib/actions";
 
 export default async function Issue({
   params, 
@@ -13,7 +13,10 @@ export default async function Issue({
   },
 }){
   const { owner, repo, id } = params;
-  const issue = await getIssue(owner, repo, id);
+  const [issue, comments] = await Promise.all([
+    getIssue(owner, repo, id),
+    getIssueComments(owner, repo, id)
+  ]);
   const { title, body, state } = issue;
   const closeIssueWithParams = closeIssue.bind(null, owner, repo, id);
   return (
@@ -37,6 +40,15 @@ export default async function Issue({
       <br />
       <p>Body: </p>
       <Markdown>{body}</Markdown>
+      <br />
+      <h2>Comments</h2>
+      <ul>
+        {comments.map((comment: any) => (
+          <li key={comment.id}>
+            <p>{comment.user.login}: {comment.body}</p>
+          </li>
+        ))}
+      </ul>
     </>
   )
 }
