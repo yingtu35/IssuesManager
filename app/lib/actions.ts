@@ -4,6 +4,7 @@ import { z } from "zod";
 import { auth, signIn, signOut } from "@/auth";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
+import { IssuesSearchParams } from "./definitions";
 
 const baseUrl = 'https://api.github.com';
 
@@ -51,15 +52,32 @@ export async function logOut() {
   await signOut();
 }
 
-export async function getIssues() {
+export async function getIssues(searchParams: IssuesSearchParams) {
   const session = await auth();
   console.log(session);
   if (!session?.access_token) {
     console.error('No access token found');
     return [];
   }
+  // add default values to searchParams if not provided
+  searchParams = {
+    ...searchParams,
+    filter: searchParams.filter || 'all',
+    state: searchParams.state || 'all',
+    sort: searchParams.sort || 'created',
+    direction: searchParams.direction || 'desc',
+    page: searchParams.page || "1",
+    per_page: "10",
+  };
 
-  const res = await fetch(`${baseUrl}/issues?filter=all&state=all`, {
+
+  // construct the query string from the searchParams object
+  const query = new URLSearchParams(searchParams).toString();
+  console.log("query:", query);
+  // construct the URL with the query string
+  const url = `${baseUrl}/issues?${query}`;
+
+  const res = await fetch(url, {
     method: 'GET',
     headers: {
       'X-GitHub-Api-Version': '2022-11-28',
@@ -67,9 +85,55 @@ export async function getIssues() {
       Accept: 'application/vnd.github+json'
     }
   });
+  // get headers from response
+  const headers = res.headers;
+  // get the link header
+  const link = headers.get('link');
+  const pagesRemaining = link && link.includes(`rel=\"next\"`);
+  // extract the next page url from the link header
+  const nextPageUrlArray = link && link.match(/<([^>]+)>;\s*rel="next"/);
+  console.log("nextPageUrlArray:", nextPageUrlArray);
+  const nextPageUrl = nextPageUrlArray && nextPageUrlArray[1];
+
+  if (pagesRemaining) {
+    console.log('There are more pages of issues');
+  }
+  
   const data = await res.json();
   // console.log(data);
-  return data;
+  return [data, nextPageUrl];
+}
+
+export async function getMoreIssues(url: string) {
+  const session = await auth();
+  console.log(session);
+  if (!session?.access_token) {
+    console.error('No access token found');
+    return [];
+  }
+
+  const res = await fetch(url, {
+    method: 'GET',
+    headers: {
+      'X-GitHub-Api-Version': '2022-11-28',
+      Authorization: `Bearer ${session.access_token}`,
+      Accept: 'application/vnd.github+json'
+    }
+  });
+
+  // get headers from response
+  const headers = res.headers;
+  // get the link header
+  const link = headers.get('link');
+  const pagesRemaining = link && link.includes(`rel=\"next\"`);
+  // extract the next page url from the link header
+  const nextPageUrlArray = link && link.match(/<([^>]+)>;\s*rel="next"/);
+  console.log("nextPageUrlArray:", nextPageUrlArray);
+  const nextPageUrl = nextPageUrlArray && nextPageUrlArray[1];
+
+  const data = await res.json();
+  // console.log(data);
+  return [data, nextPageUrl];
 }
 
 export async function getIssue(owner: string, repo: string, number: string) {
