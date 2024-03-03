@@ -2,7 +2,7 @@
 
 import { useSearchParams, usePathname, useRouter } from 'next/navigation';
 
-export default function Filtering() {
+export default function Filtering({ initialState }: { initialState: string | undefined }) {
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const { replace } = useRouter();
@@ -25,7 +25,7 @@ export default function Filtering() {
       <select
         id="filter"
         name="filter"
-        defaultValue=""
+        defaultValue={initialState}
         onChange={(e) => handleFilterChange(e.target.value)}
         className="p-2 border border-gray-300 rounded-md"
       >

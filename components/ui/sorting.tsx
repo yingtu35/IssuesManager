@@ -1,8 +1,9 @@
 'use client'
 
+import { useState, useEffect } from 'react';
 import { useSearchParams, usePathname, useRouter } from 'next/navigation';
 
-export default function Sorting() {
+export default function Sorting({ initialDirection }: { initialDirection: string | undefined }) {
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const { replace } = useRouter();
@@ -24,7 +25,7 @@ export default function Sorting() {
       <select
         id="sorting"
         name="sorting"
-        defaultValue=""
+        defaultValue={initialDirection}
         onChange={(e) => handleSortingChange(e.target.value)}
         className="p-2 border border-gray-300 rounded-md"
       >

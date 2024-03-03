@@ -31,7 +31,7 @@ export default async function Page({
             href: `/dashboard/${owner}/${repo}/${id}`,
           },
           {
-            label: 'Update Issue',
+            label: 'Edit',
             href: `/dashboard/${owner}/${repo}/${id}/edit`,
             active: true,
           },

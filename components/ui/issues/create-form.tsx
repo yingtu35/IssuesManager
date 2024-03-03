@@ -1,8 +1,8 @@
 "use client"
 
-import Link from "next/link"
 import { createIssue } from "@/app/lib/actions"
 import { useFormState } from "react-dom"
+import { CancelCreate, SubmitButton } from "./buttons";
 export default function Form({ owner, repos }: { owner: string, repos: any[] }){
   const initialState = { message: null, error: {} };
   const [state, dispatch] = useFormState(createIssue, initialState);
@@ -84,13 +84,8 @@ export default function Form({ owner, repos }: { owner: string, repos: any[] }){
           </div>
       </div>
       <div className="mt-6 flex justify-end gap-4">
-        <Link
-            href="/dashboard"
-            className="flex h-10 items-center rounded-lg bg-gray-100 px-4 text-sm font-medium text-gray-600 transition-colors hover:bg-gray-200"
-          >
-            Cancel
-          </Link>
-        <button type="submit">Create Issue</button>
+        <CancelCreate />
+        <SubmitButton text="Create" />
       </div>
     </form>
   )
