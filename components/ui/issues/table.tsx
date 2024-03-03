@@ -4,7 +4,6 @@ import { useState, useEffect } from "react";
 import { useInView } from "react-intersection-observer";
 import { formatDateToLocal } from "@/app/lib/utils";
 import Link from "next/link";
-import { IssuesSearchParams } from "@/app/lib/definitions";
 import { getMoreIssues } from "@/app/lib/actions";
 
 // TODO: add query as props
@@ -14,16 +13,20 @@ import { getMoreIssues } from "@/app/lib/actions";
 // TODO: Using a hidden tag, such as a span, placed at the end of an array.map output, when the user scrolls down and reaches the span, inView becomes true and triggers a call to the database to retrieve additional array elements which are then displayed on the page.
 export default function FilteredIssuesTable({
   initialIssues, 
-  searchParams,
   nextPageUrl
 }: {
   initialIssues: any[],
-  searchParams: IssuesSearchParams,
   nextPageUrl: string | null
 }) {
   const { ref, inView, entry } = useInView();
   const [issues, setIssues] = useState(initialIssues);
   const [nextPage, setNextPage] = useState(nextPageUrl);
+
+  useEffect(() => {
+    console.log("nextPageUrl:", nextPageUrl);
+    setIssues(initialIssues);
+    setNextPage(nextPageUrl); // Provide a default value of an empty string if nextPageUrl is null
+  }, [initialIssues, nextPageUrl]);
 
   // add a useEffect to fetch more issues when inView is true
   useEffect(() => {
@@ -62,11 +65,11 @@ export default function FilteredIssuesTable({
       <tbody>
         {issues.map((issue: any, index: Number) => (
           <tr key={issue.id} className="py-10">
-            <td className="py-10">{issue.title}</td>
-            <td>{issue.state}</td>
+            <td className="py-10 text-center">{issue.title}</td>
+            <td className="text-center">{issue.state}</td>
             {/* <td>{issue.user.login}</td> */}
-            <td>{formatDateToLocal(issue.created_at)}</td>
-            <td>
+            <td className="text-center">{formatDateToLocal(issue.created_at)}</td>
+            <td className="text-center">
               <Link href={`/dashboard/${issue.user.login}/${issue.repository.name}/${issue.number}`} key={issue.id}>
                 <p>View</p>
               </Link>
