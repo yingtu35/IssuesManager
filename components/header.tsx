@@ -6,7 +6,6 @@ import Image from "next/image";
 import logo from "@/public/logo.png";
 import UserIcon from "./ui/user/user-icon";
 
-// TODO: Use NextUI for dropdown menu for user profile
 export default async function Header() {
   const session = await auth();
   const user = session?.user;

@@ -20,7 +20,6 @@ export default function Direction({ initialDirection }: { initialDirection: stri
 
   return (
     <div className="flex items-center">
-      <label htmlFor="direction">Order</label>
       <select
         id="direction"
         name="direction"
@@ -28,6 +27,7 @@ export default function Direction({ initialDirection }: { initialDirection: stri
         onChange={(e) => handleDirectionChange(e.target.value)}
         className="p-2 border border-gray-300 rounded-md"
       >
+        <option selected hidden>Order by</option>
         <option value="desc">new to old</option>
         <option value="asc">old to new</option>
       </select>

@@ -21,7 +21,6 @@ export default function Filtering({ initialState }: { initialState: string | und
 
   return (
     <div className="flex items-center">
-      <label htmlFor="filter">Filter</label>
       <select
         id="filter"
         name="filter"
@@ -29,6 +28,7 @@ export default function Filtering({ initialState }: { initialState: string | und
         onChange={(e) => handleFilterChange(e.target.value)}
         className="p-2 border border-gray-300 rounded-md"
       >
+        <option selected hidden>Filter</option>
         <option value="all">All</option>
         <option value="open">Open</option>
         <option value="closed">Closed</option>

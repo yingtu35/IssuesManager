@@ -20,7 +20,6 @@ export default function Direction({ initialSort }: { initialSort: string | undef
 
   return (
     <div className="flex items-center">
-      <label htmlFor="sorting">Sort by</label>
       <select
         id="sorting"
         name="sorting"
@@ -28,6 +27,7 @@ export default function Direction({ initialSort }: { initialSort: string | undef
         onChange={(e) => handleSortingChange(e.target.value)}
         className="p-2 border border-gray-300 rounded-md"
       >
+        <option selected hidden>Sort by</option>
         <option value="created">Created</option>
         <option value="updated">Updated</option>
         <option value="comments">Comments</option>

@@ -1,7 +1,7 @@
 import { Button } from "../button";
 import Link from "next/link";
 import { closeIssue } from "@/app/lib/actions";
-import { CheckCircleIcon, MinusCircleIcon } from "@heroicons/react/24/outline";
+import { CheckCircleIcon, MinusCircleIcon, PlusIcon } from "@heroicons/react/24/outline";
 
 export const CreateIssue = () => {
   return (
@@ -9,7 +9,10 @@ export const CreateIssue = () => {
       href="/dashboard/create"
       className="text-center"
     >
-      <Button>+ Create Issue</Button>
+      <Button className="pl-2 pr-4">
+        <PlusIcon className="h-4 w-4" />
+        Create Issue
+      </Button>
     </Link>
   )
 }
