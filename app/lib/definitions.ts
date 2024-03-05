@@ -4,6 +4,7 @@
 export type IssuesSearchParams = {
   filter?: string;
   state?: string;
+  since?: string;
   sort?: string;
   direction?: string;
   per_page?: string;

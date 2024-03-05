@@ -66,10 +66,13 @@ export async function getIssues(searchParams: IssuesSearchParams) {
     state: searchParams.state || 'all',
     sort: searchParams.sort || 'created',
     direction: searchParams.direction || 'desc',
+    // if since is not provided in searchParams, use the oldest date possible
+    // since: searchParams.since || "1970-01-01T00:00:00Z",
     page: searchParams.page || "1",
     per_page: "10",
   };
-
+  
+  console.log("searchParams:", searchParams);
 
   // construct the query string from the searchParams object
   const query = new URLSearchParams(searchParams).toString();
@@ -100,7 +103,7 @@ export async function getIssues(searchParams: IssuesSearchParams) {
   }
   
   const data = await res.json();
-  // console.log(data);
+  console.log("getIssues: ", data);
   return [data, nextPageUrl];
 }
 

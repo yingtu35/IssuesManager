@@ -1,6 +1,7 @@
 import { Button } from "../button";
 import Link from "next/link";
 import { closeIssue } from "@/app/lib/actions";
+import { CheckCircleIcon, MinusCircleIcon } from "@heroicons/react/24/outline";
 
 export const CreateIssue = () => {
   return (
@@ -58,4 +59,22 @@ export const CancelEdit = ({ owner, repo, id }: { owner: string, repo: string, i
 
 export const SubmitButton = ({ text } : {text: string | null}) => {
   return <Button type="submit">{text ? text : "Submit"}</Button>
+}
+
+export const OpenState = () => {
+  return <Button 
+          disabled={true} 
+          className="rounded-3xl bg-green-500 hover:bg-green-500 active:bg-green-500 pl-3 pr-4">
+            <MinusCircleIcon className="h-4 w-4" />
+            Open
+          </Button>
+}
+
+export const ClosedState = () => {
+  return <Button 
+  disabled={true} 
+  className="rounded-3xl bg-purple-500 hover:bg-purple-500 active:bg-purple-500 pl-3 pr-4">
+            <CheckCircleIcon className="h-4 w-4" />
+            Closed
+          </Button>
 }

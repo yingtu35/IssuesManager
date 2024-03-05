@@ -6,7 +6,9 @@ import { formatDateToLocal } from "@/app/lib/utils";
 import Link from "next/link";
 import { getMoreIssues } from "@/app/lib/actions";
 import { MagnifyingGlass } from "react-loader-spinner";
+import Card from "./card";
 
+// TODO: change loading spinner to skeleton loader
 export default function FilteredIssuesTable({
   initialIssues, 
   nextPageUrl
@@ -38,46 +40,23 @@ export default function FilteredIssuesTable({
     }
     fetchMoreIssues();
   }, [inView]);
-  
+
   return (
     <>
-      <table>
-        <thead>
-          <tr>
-            <th scope="col" className="px-4 py-5 font-medium">
-              Title
-            </th>
-            <th scope="col" className="px-4 py-5 font-medium">
-              State
-            </th>
-            {/* <th scope="col" className="px-4 py-5 font-medium">Author</th> */}
-            <th scope="col" className="px-4 py-5 font-medium">
-              Created At
-            </th>
-            <th scope="col" className="px-4 py-5 font-medium">
-              Link
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          {issues.map((issue: any, index: Number) => (
-            <tr key={issue.id} className="py-10">
-              <td className="py-10 text-center">{issue.title}</td>
-              <td className="text-center">{issue.state}</td>
-              {/* <td>{issue.user.login}</td> */}
-              <td className="text-center">{formatDateToLocal(issue.created_at)}</td>
-              <td className="text-center">
-                <Link href={`/dashboard/${issue.user.login}/${issue.repository.name}/${issue.number}`} key={issue.id}>
-                  <p>View</p>
-                </Link>
-                {/* { index === issues.length - 1 && (
-                  
-                )} */}
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      <div className="flex flex-col gap-4">
+        {issues.map((issue: any, index: Number) => (
+          <Card
+            key={issue.id}
+            user={issue.user.login}
+            title={issue.title}
+            repo={issue.repository.name}
+            number={issue.number}
+            state={issue.state}
+            createdAt={formatDateToLocal(issue.created_at)}
+            updatedAt={formatDateToLocal(issue.updated_at)}
+          />
+        ))}
+      </div>
       <div className="flex justify-center">
         { inView && nextPage && (
           <MagnifyingGlass
@@ -93,4 +72,59 @@ export default function FilteredIssuesTable({
       </div>
     </>
   )
+  
+  // return (
+  //   <>
+  //     <table>
+  //       <thead>
+  //         <tr>
+  //           <th scope="col" className="px-4 py-5 font-medium">
+  //             Title
+  //           </th>
+  //           <th scope="col" className="px-4 py-5 font-medium">
+  //             State
+  //           </th>
+  //           {/* <th scope="col" className="px-4 py-5 font-medium">Author</th> */}
+  //           <th scope="col" className="px-4 py-5 font-medium">
+  //             Created At
+  //           </th>
+  //           <th scope="col" className="px-4 py-5 font-medium">
+  //             Link
+  //           </th>
+  //         </tr>
+  //       </thead>
+  //       <tbody>
+  //         {issues.map((issue: any, index: Number) => (
+  //           <tr key={issue.id} className="py-10">
+  //             <td className="py-10 text-center">{issue.title}</td>
+  //             <td className="text-center">{issue.state}</td>
+  //             {/* <td>{issue.user.login}</td> */}
+  //             <td className="text-center">{formatDateToLocal(issue.created_at)}</td>
+  //             <td className="text-center">
+  //               <Link href={`/dashboard/${issue.user.login}/${issue.repository.name}/${issue.number}`} key={issue.id}>
+  //                 <p>View</p>
+  //               </Link>
+  //               {/* { index === issues.length - 1 && (
+                  
+  //               )} */}
+  //             </td>
+  //           </tr>
+  //         ))}
+  //       </tbody>
+  //     </table>
+  //     <div className="flex justify-center">
+  //       { inView && nextPage && (
+  //         <MagnifyingGlass
+  //           visible={true}
+  //           height="120"
+  //           width="120"
+  //           ariaLabel="magnifying-glass-loading"
+  //           glassColor="white"
+  //           color="black"
+  //           />
+  //           )}
+  //       <span ref={ref} id="issue-end-tag" />
+  //     </div>
+  //   </>
+  // )
 }

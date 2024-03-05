@@ -1,9 +1,8 @@
 'use client'
 
-import { useState, useEffect } from 'react';
 import { useSearchParams, usePathname, useRouter } from 'next/navigation';
 
-export default function Sorting({ initialDirection }: { initialDirection: string | undefined }) {
+export default function Direction({ initialSort }: { initialSort: string | undefined }) {
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const { replace } = useRouter();
@@ -12,9 +11,9 @@ export default function Sorting({ initialDirection }: { initialDirection: string
     console.log(value);
     const params = new URLSearchParams(searchParams);
     if (value) {
-      params.set('direction', value);
+      params.set('sorting', value);
     } else {
-      params.delete('direction');
+      params.delete('sorting');
     }
     replace(`${pathname}?${params.toString()}`)
   }
@@ -25,12 +24,13 @@ export default function Sorting({ initialDirection }: { initialDirection: string
       <select
         id="sorting"
         name="sorting"
-        defaultValue={initialDirection}
+        defaultValue={initialSort}
         onChange={(e) => handleSortingChange(e.target.value)}
         className="p-2 border border-gray-300 rounded-md"
       >
-        <option value="desc">new to old</option>
-        <option value="asc">old to new</option>
+        <option value="created">Created</option>
+        <option value="updated">Updated</option>
+        <option value="comments">Comments</option>
       </select>
     </div>
   );
