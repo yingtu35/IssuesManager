@@ -10,3 +10,21 @@ export type IssuesSearchParams = {
   per_page?: string;
   page?: string;
 };
+
+export type IssueCardType = {
+  user: string;
+  title: string;
+  repo: string;
+  number: string;
+  state: string;
+  formattedCreatedAt: string;
+  formattedUpdatedAt: string;
+}
+
+export type CommentType = {
+  user: string;
+  avatarUrl: string;
+  body: string;
+  createdAt: string;
+  // updatedAt: string;
+}

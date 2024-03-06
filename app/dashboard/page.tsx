@@ -3,6 +3,8 @@ import { IssuesSearchParams } from "@/app/lib/definitions";
 import Breadcrumbs from "@/components/ui/issues/breadcrumbs";
 import Issues from "@/components/ui/issues/issues";
 import Toolbar from "@/components/ui/toolbar";
+import { IssuesSkeleton } from "@/components/ui/skeletons";
+import { Suspense } from "react";
 
 export const metadata: Metadata = {
   title: "Dashboard",
@@ -10,7 +12,6 @@ export const metadata: Metadata = {
 
 // TODO: Add a layout component to wrap the content
 // TODO: Add dashboard skeleton
-// TODO: Add issue card skeleton
 // TODO: Add create issue skeleton
 // TODO: render body content as markdown
 export default async function Dashboard({
@@ -29,7 +30,9 @@ export default async function Dashboard({
       />
       <div className="flex flex-col gap-4">
         <Toolbar searchParams={searchParams} />
-        <Issues searchParams={searchParams} />
+        <Suspense fallback={<IssuesSkeleton />}>
+          <Issues searchParams={searchParams} />
+        </Suspense>
       </div>
     </main>
   );
