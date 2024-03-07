@@ -1,7 +1,9 @@
 import { EditIssue, CloseIssue, ClosedIssue, OpenState, ClosedState } from "./buttons";
 import { getIssue, getIssueComments } from "@/app/lib/actions";
 import Comment from "@/components/ui/comment/comment";
+import { IssueBodyType } from "@/app/lib/definitions";
 
+// TODO: Use pagination for comments
 export default async function Issue({
   params, 
 }: {
@@ -16,7 +18,14 @@ export default async function Issue({
     getIssue(owner, repo, id),
     getIssueComments(owner, repo, id)
   ]);
-  const { title, body, state } = issue;
+  const { title, state } = issue;
+  const issueBody = {
+    user: issue.user.login,
+    avatarUrl: issue.user.avatar_url,
+    body: issue.body,
+    createdAt: issue.created_at,
+    htmlUrl: issue.user.html_url
+  } as IssueBodyType;
   return (
     <>
       <div className="flex flex-col gap-4">
@@ -36,16 +45,18 @@ export default async function Issue({
         </div>
         <div className="border-t-2 border-gray-300"></div>
       </div>
-      <div className="flex flex-col gap-4 mt-4">
+      <div className="flex flex-col gap-20   mt-4">
+        <Comment comment={issueBody} />
         {comments.map((comment: any) => {
           const commentInfo = {
             user: comment.user.login,
             avatarUrl: comment.user.avatar_url,
             body: comment.body,
-            createdAt: comment.created_at
+            createdAt: comment.created_at,
+            htmlUrl: comment.user.html_url
           }
           return (
-            <Comment comment={commentInfo} key={comment.id} />
+              <Comment comment={commentInfo} key={comment.id} />
           )
           })}
       </div>

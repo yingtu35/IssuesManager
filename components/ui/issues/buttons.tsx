@@ -68,7 +68,7 @@ export const OpenState = () => {
   return <Button 
           disabled={true} 
           className="rounded-3xl bg-green-500 hover:bg-green-500 active:bg-green-500 pl-3 pr-4">
-            <MinusCircleIcon className="h-4 w-4" />
+            <MinusCircleIcon className="h-4 w-4 mr-1" />
             Open
           </Button>
 }
@@ -77,7 +77,7 @@ export const ClosedState = () => {
   return <Button 
   disabled={true} 
   className="rounded-3xl bg-purple-500 hover:bg-purple-500 active:bg-purple-500 pl-3 pr-4">
-            <CheckCircleIcon className="h-4 w-4" />
+            <CheckCircleIcon className="h-4 w-4 mr-1" />
             Closed
           </Button>
 }

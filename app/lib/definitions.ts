@@ -26,5 +26,8 @@ export type CommentType = {
   avatarUrl: string;
   body: string;
   createdAt: string;
+  htmlUrl?: string;
   // updatedAt: string;
 }
+
+export type IssueBodyType = CommentType;
