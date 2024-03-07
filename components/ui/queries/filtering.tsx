@@ -24,7 +24,6 @@ export default function Filtering({ initialState }: { initialState: string | und
       <select
         id="filter"
         name="filter"
-        defaultValue={initialState}
         onChange={(e) => handleFilterChange(e.target.value)}
         className="p-2 border border-gray-300 rounded-md"
       >

@@ -23,7 +23,6 @@ export default function Direction({ initialDirection }: { initialDirection: stri
       <select
         id="direction"
         name="direction"
-        defaultValue={initialDirection}
         onChange={(e) => handleDirectionChange(e.target.value)}
         className="p-2 border border-gray-300 rounded-md"
       >

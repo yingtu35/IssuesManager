@@ -7,7 +7,6 @@ import { getMoreIssues } from "@/app/lib/actions";
 import Card from "./card";
 import { CardsSkeleton } from "../skeletons";
 
-// TODO: change loading spinner to skeleton loader
 export default function FilteredIssuesTable({
   initialIssues, 
   nextPageUrl

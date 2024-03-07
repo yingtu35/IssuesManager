@@ -1,7 +1,8 @@
-import { Button } from "../button";
+import { Button, TabButton } from "../button";
 import Link from "next/link";
 import { closeIssue } from "@/app/lib/actions";
 import { CheckCircleIcon, MinusCircleIcon, PlusIcon } from "@heroicons/react/24/outline";
+import { MouseEventHandler } from "react";
 
 export const CreateIssue = () => {
   return (
@@ -60,8 +61,14 @@ export const CancelEdit = ({ owner, repo, id }: { owner: string, repo: string, i
   )
 }
 
-export const SubmitButton = ({ text } : {text: string | null}) => {
-  return <Button type="submit">{text ? text : "Submit"}</Button>
+export const SubmitButton = ({ text, disabled } : {text: string | null, disabled?: boolean}) => {
+  return <Button 
+            type="submit" 
+            disabled={disabled}
+            className={disabled ? "bg-gray-100 hover:bg-gray-100 active:bg-gray-100" : ""}
+          >
+            {text ? text : "Submit"}
+          </Button>
 }
 
 export const OpenState = () => {
@@ -80,4 +87,28 @@ export const ClosedState = () => {
             <CheckCircleIcon className="h-4 w-4 mr-1" />
             Closed
           </Button>
+}
+
+export const WriteButton = ({ 
+  onClick, 
+  className 
+} : { 
+  onClick: MouseEventHandler<HTMLButtonElement>
+  className: string
+}) => {
+  return (
+    <TabButton type="button" className={className} onClick={onClick}>Write</TabButton>
+  )
+}
+
+export const PreviewButton = ({ 
+  onClick, 
+  className 
+} : { 
+  onClick: MouseEventHandler<HTMLButtonElement>
+  className: string
+}) => {
+  return (
+    <TabButton type="button" className={className} onClick={onClick}>Preview</TabButton>
+  )
 }

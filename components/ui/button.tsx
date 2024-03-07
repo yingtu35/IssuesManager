@@ -17,3 +17,17 @@ export function Button({ children, className, ...rest }: ButtonProps) {
     </button>
   );
 }
+
+export function TabButton({ children, className, ...rest }: ButtonProps) {
+  return (
+    <button
+      {...rest}
+      className={clsx(
+        'flex h-10 items-center bg-gray-300 px-4 text-sm font-medium text-white transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500 active:bg-gray-400 aria-disabled:cursor-not-allowed aria-disabled:opacity-50',
+        className,
+      )}
+    >
+      {children}
+    </button>
+  );
+}

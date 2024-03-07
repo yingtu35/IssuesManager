@@ -2,6 +2,7 @@ import { EditIssue, CloseIssue, ClosedIssue, OpenState, ClosedState } from "./bu
 import { getIssue, getIssueComments } from "@/app/lib/actions";
 import Comment from "@/components/ui/comment/comment";
 import { IssueBodyType } from "@/app/lib/definitions";
+import { calculateTimeElapsed } from "@/app/lib/utils";
 
 // TODO: Use pagination for comments
 export default async function Issue({
@@ -19,6 +20,10 @@ export default async function Issue({
     getIssueComments(owner, repo, id)
   ]);
   const { title, state } = issue;
+  const issueInfo = {
+    ...issue,
+    repository: repo
+  }
   const issueBody = {
     user: issue.user.login,
     avatarUrl: issue.user.avatar_url,
@@ -26,6 +31,7 @@ export default async function Issue({
     createdAt: issue.created_at,
     htmlUrl: issue.user.html_url
   } as IssueBodyType;
+  const timeElapsed = calculateTimeElapsed(issue.created_at);
   return (
     <>
       <div className="flex flex-col gap-4">
@@ -41,7 +47,7 @@ export default async function Issue({
         </div>
         <div className="flex gap-4 items-center">
           { state === "open" ? <OpenState /> : <ClosedState />}
-          <p className="italic">{owner} opened this issue 2 weeks ago; {comments.length} comments</p>
+          <p className="italic">{owner} opened this issue {timeElapsed}; {comments.length} comments</p>
         </div>
         <div className="border-t-2 border-gray-300"></div>
       </div>

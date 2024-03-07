@@ -3,6 +3,7 @@ import { calculateTimeElapsed } from "@/app/lib/utils";
 import { CommentType } from "@/app/lib/definitions"
 import Markdown from "react-markdown";
 
+// TODO: Add relation of commenters to issue
 export default function Comment({ comment } : { comment: CommentType}) {
   const { user, avatarUrl, body, createdAt, htmlUrl } = comment;
   const timeElapsed = calculateTimeElapsed(createdAt);
@@ -23,7 +24,7 @@ export default function Comment({ comment } : { comment: CommentType}) {
           <p className="p-2">{user} commented {timeElapsed}</p>
         </div>
         <div id="comment-body" className="p-2">
-          <Markdown>{body}</Markdown>
+          <Markdown className="prose lg:prose-xl">{body}</Markdown>
         </div>
       </div>
     </div>

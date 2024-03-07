@@ -23,7 +23,6 @@ export default function Direction({ initialSort }: { initialSort: string | undef
       <select
         id="sorting"
         name="sorting"
-        defaultValue={initialSort}
         onChange={(e) => handleSortingChange(e.target.value)}
         className="p-2 border border-gray-300 rounded-md"
       >

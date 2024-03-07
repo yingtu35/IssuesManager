@@ -13,7 +13,6 @@ export const metadata: Metadata = {
 // TODO: Add a layout component to wrap the content
 // TODO: Add dashboard skeleton
 // TODO: Add create issue skeleton
-// TODO: render body content as markdown
 export default async function Dashboard({
   searchParams
 } : {

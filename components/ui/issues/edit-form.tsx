@@ -1,8 +1,10 @@
 "use client"
 
 import { updateIssue } from "@/app/lib/actions"
+import { useState } from "react"
 import { useFormState } from "react-dom"
-import { CancelEdit, SubmitButton } from "./buttons"
+import { CancelEdit, SubmitButton, WriteButton, PreviewButton } from "./buttons"
+import Markdown from "react-markdown"
 export default function Form({
   params, 
   issue 
@@ -16,17 +18,25 @@ export default function Form({
 }){
   const { owner, repo, id } = params;
   const { title, body } = issue;
+  const [edit, setEdit] = useState(true);
+  const [bodyValue, setBodyValue] = useState(body);
+  const updateDisabled = bodyValue.length < 30;
   const initialState = { message: null, error: {} };
   const [state, dispatch] = useFormState(updateIssue, initialState);
-  // a form to create a new issue
-  // contains fields for owner, repo, title, body
+
+  function toggleEdit(value: boolean) {
+    if (value !== edit) {
+      setEdit(value);
+    }
+  }
+
   return (
-    <form action={dispatch}>
+    <form action={dispatch} className="w-full">
       {/* Owner Name */}
-      <div>
-        <label htmlFor="owner" className="block">Owner</label>
-        <input type="text" id="owner" name="owner" value={owner} readOnly />
-        <div id="owner-error" aria-live="polite" aria-atomic="true">
+      <div className="flex flex-col gap-2">
+        <div>
+          <input type="hidden" id="owner" name="owner" value={owner} readOnly />
+          <div id="owner-error" aria-live="polite" aria-atomic="true">
             {state.errors?.owner &&
               state.errors.owner.map((error: string) => (
                 <p className="mt-2 text-sm text-red-500" key={error}>
@@ -34,24 +44,25 @@ export default function Form({
                 </p>
             ))}
           </div>
-      </div>
-      {/* Repo Name */}
-      <div>
-        <label htmlFor="repo" className="block">Choose a repo</label>
-        <div className="relative">
-          <select 
-            id="repo" 
-            value={repo}
-            disabled
-          >
-            <option key={repo} value={repo}>
-              {repo}
-            </option>
-          </select>
-          <input type="hidden" name="repo" value={repo} />
-          <input type="hidden" name="issue_number" value={id} />
         </div>
-        <div id="repo-error" aria-live="polite" aria-atomic="true">
+        {/* Repo Name */}
+        <div>
+          <label htmlFor="repo" className="block font-bold">Choose a repository</label>
+          <div className="relative">
+            <select 
+              id="repo" 
+              value={repo}
+              disabled
+              className="border-2 border-gray-300 rounded-md p-2 w-full"
+            >
+              <option key={repo} value={repo}>
+                {repo}
+              </option>
+            </select>
+            <input type="hidden" name="repo" value={repo} />
+            <input type="hidden" name="issue_number" value={id} />
+          </div>
+          <div id="repo-error" aria-live="polite" aria-atomic="true">
             {state.errors?.repo &&
               state.errors.repo.map((error: string) => (
                 <p className="mt-2 text-sm text-red-500" key={error}>
@@ -59,47 +70,65 @@ export default function Form({
                 </p>
             ))}
           </div>
-      </div>
-      {/* Issue Title */}
-      <div>
-        <label htmlFor="title" className="block">Title</label>
-        <input 
-          type="text" 
-          id="title" 
-          name="title" 
-          placeholder="Enter a title"
-          defaultValue={title} 
-        />
-        <div id="title-error" aria-live="polite" aria-atomic="true">
-            {state.errors?.title &&
-              state.errors.title.map((error: string) => (
-                <p className="mt-2 text-sm text-red-500" key={error}>
-                  {error}
-                </p>
-            ))}
+        </div>
+        {/* Issue Title */}
+        <div>
+          <label htmlFor="title" className="block font-bold">Enter a title</label>
+          <input 
+            type="text" 
+            id="title" 
+            name="title" 
+            placeholder="Title"
+            defaultValue={title} 
+            className="border-2 border-gray-300 rounded-md p-2 w-full"
+          />
+          <div id="title-error" aria-live="polite" aria-atomic="true">
+              {state.errors?.title &&
+                state.errors.title.map((error: string) => (
+                  <p className="mt-2 text-sm text-red-500" key={error}>
+                    {error}
+                  </p>
+              ))}
+            </div>
+        </div>
+        {/* Issue Body */}
+        <div>
+          <label htmlFor="body" className="block font-bold">Enter a description</label>
+          <div className="flex flex-col border-2 border-gray-300 rounded-md">
+            <div className="flex bg-gray-300">
+              <WriteButton onClick={() => toggleEdit(true)} className={edit ? "z-10 border-2 border-gray-400 rounded-t-md bg-gray-400" : "hover:text-slate-600"} />
+              <PreviewButton onClick={() => toggleEdit(false)} className={edit ? "hover:text-slate-600" : "z-10 border-2 border-gray-400 rounded-t-md bg-gray-400"} />
+            </div>
+            { edit ? (
+              <div className="flex flex-col m-1">
+                <textarea 
+                  id="body" 
+                  name="body"
+                  placeholder="Add your description here..."
+                  value={bodyValue}
+                  onChange={(e) => setBodyValue(e.target.value)}
+                  className="border-2 border-gray-300 rounded-md box-border p-2 w-full h-64 max-h-80"
+                />
+                <div id="body-error" aria-live="polite" aria-atomic="true">
+                  {state.errors?.body &&
+                    state.errors.body.map((error: string) => (
+                      <p className="mt-2 text-sm text-red-500" key={error}>
+                        {error}
+                      </p>
+                  ))}
+                </div>
+              </div>
+            ) : (
+              <div className="box-border p-2 w-full h-64 max-h-80">
+                <Markdown className="prose lg:prose-xl">{bodyValue}</Markdown>
+              </div>
+            )}
           </div>
-      </div>
-      {/* Issue Body */}
-      <div>
-        <label htmlFor="body" className="block">Body</label>
-        <textarea 
-          id="body" 
-          name="body"
-          placeholder="Enter a description"
-          defaultValue={body}
-        />
-        <div id="body-error" aria-live="polite" aria-atomic="true">
-            {state.errors?.body &&
-              state.errors.body.map((error: string) => (
-                <p className="mt-2 text-sm text-red-500" key={error}>
-                  {error}
-                </p>
-            ))}
-          </div>
-      </div>
-      <div className="mt-6 flex justify-end gap-4">
-        <CancelEdit owner={owner} repo={repo} id={id} />
-        <SubmitButton text="Update" />
+        </div>
+        <div className="flex justify-end gap-4">
+          <CancelEdit owner={owner} repo={repo} id={id} />
+          <SubmitButton text="Update" disabled={updateDisabled} />
+        </div>
       </div>
     </form>
   )

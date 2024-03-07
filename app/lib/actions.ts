@@ -21,7 +21,7 @@ const FormSchema = z.object({
     message: "Title is required",
   }),
   body: z.string().min(30, {
-    message: "Body must be at least 30 characters long",
+    message: "Description must be at least 30 characters long",
   }),
 });
 
