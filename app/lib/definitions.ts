@@ -31,3 +31,9 @@ export type CommentType = {
 }
 
 export type IssueBodyType = CommentType;
+
+export type UserIconType = {
+  name: string;
+  avatarUrl: string;
+  htmlUrl: string;
+}

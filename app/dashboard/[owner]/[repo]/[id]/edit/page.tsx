@@ -3,7 +3,7 @@ import Breadcrumbs from '@/components/ui/issues/breadcrumbs';
 import { getIssue } from '@/app/lib/actions';
 import { Metadata } from 'next';
 import { auth } from "@/auth"
-import Image from 'next/image';
+import { UserIcon as User } from '@/components/ui/user/user-icon';
 
 export const metadata: Metadata = {
   title: 'Create Issue',
@@ -22,9 +22,11 @@ export default async function Page({
   if (!session) return { redirect: { destination: '/auth/signin', permanent: false } };
   const { owner, repo, id } = params;
   const issue = await getIssue(owner, repo, id);
-  const user = issue.user.login;
-  const avatarUrl = issue.user.avatar_url;
-  const htmlUrl = issue.user.html_url;
+  const user = {
+    name: issue.user.login,
+    avatarUrl: issue.user.avatar_url,
+    htmlUrl: issue.user.html_url
+  }
   return (
     <main>
       <Breadcrumbs
@@ -42,15 +44,7 @@ export default async function Page({
         ]}
       />
       <div className="flex gap-4 items-start">
-      <a href={htmlUrl} target="_blank" rel="noopener noreferrer">
-        <Image
-          src={avatarUrl}
-          alt={`${user} icon`}
-          width={50}
-          height={50}
-          className="rounded-full border-2 border-blue-200"
-        />
-      </a>
+        <User user={user} />
         <Form params={params} issue={issue} />
       </div>
     </main>

@@ -2,17 +2,33 @@
 
 import { SignOut } from "@/components/auth-components"
 import { User } from "next-auth";
+import { UserIconType } from "@/app/lib/definitions";
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useEffect, useRef, RefObject } from "react";
 
-// TODO: make dropdown close when user clicks outside of the dropdown, but stay open when user clicks inside the dropdown
-export default function UserIcon({ user } : { user: User }) {
+export default function ProfileIcon({ user } : { user: User }) {
   const [showMenu, setShowMenu] = useState(false);
+  const dropdownRef: RefObject<HTMLDivElement> = useRef(null);
   const profileImage = user.image ? user.image : "/user.png";
+
+  function handleClickOutside(event: any) {
+    if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+      setShowMenu(false);
+    }
+  }
+
+  useEffect(() => {
+    document.addEventListener('click', handleClickOutside);
+
+    return () => {
+      document.removeEventListener('click', handleClickOutside);
+    };
+  }, []);
+
   return (
-    <div className="relative inline-block">
+    <div className="relative inline-block" ref={dropdownRef}>
       <button 
-        onFocus={() => setShowMenu(true)}
+        // onFocus={() => setShowMenu(true)}
         // onBlur={() => setShowMenu(false)}
         onClick={() => setShowMenu(!showMenu)}
         type="button"
@@ -59,5 +75,20 @@ export default function UserIcon({ user } : { user: User }) {
     //   <p>{user.name}</p>
     //   <SignOut />
     // </div>
+  )
+}
+
+export const UserIcon = ({ user } : { user: UserIconType }) => {
+  const { name, avatarUrl, htmlUrl } = user;
+  return (
+    <a href={htmlUrl} target="_blank" rel="noopener noreferrer">
+        <Image
+          src={avatarUrl}
+          alt={`${name} icon`}
+          width={50}
+          height={50}
+          className="rounded-full border-2 border-blue-200"
+        />
+      </a>
   )
 }
