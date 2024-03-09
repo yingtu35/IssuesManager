@@ -1,14 +1,15 @@
-import Form from '@/components/ui/issues/edit-form';
-import Breadcrumbs from '@/components/ui/issues/breadcrumbs';
+import Form from '@/app/components/ui/issues/edit-form';
+import Breadcrumbs from '@/app/components/ui/issues/breadcrumbs';
 import { getIssue } from '@/app/lib/actions';
 import { Metadata } from 'next';
 import { auth } from "@/auth"
-import { UserIcon as User } from '@/components/ui/user/user-icon';
+import { UserIcon as User } from '@/app/components/ui/user/user-icon';
 
 export const metadata: Metadata = {
   title: 'Create Issue',
 }
  
+// TODO: Add error page when getting issue or updating issue fails
 export default async function Page({
   params
 }: {

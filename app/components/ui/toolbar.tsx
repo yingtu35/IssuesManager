@@ -1,10 +1,10 @@
 import { IssuesSearchParams } from "@/app/lib/definitions";
-import Filtering from "@/components/ui/queries/filtering";
-import Direction from "@/components/ui/queries/direction";
-import Sorting from "@/components/ui/queries/sorting";
-import DateSince from "@/components/ui/queries/dateSince";
+import Filtering from "@/app/components/ui/queries/filtering";
+import Direction from "@/app/components/ui/queries/direction";
+import Sorting from "@/app/components/ui/queries/sorting";
+import DateSince from "@/app/components/ui/queries/dateSince";
 import ResetToolbar from "./reset-toolbar";
-import { CreateIssue } from "@/components/ui/issues/buttons";
+import { CreateIssue } from "@/app/components/ui/issues/buttons";
 
 export default function Toolbar({
   searchParams

@@ -1,4 +1,4 @@
-import { Button } from "./ui/button";
+import { Button } from "./button";
 import { authenticate, logOut } from "@/app/lib/actions";
 import Link from "next/link";
 

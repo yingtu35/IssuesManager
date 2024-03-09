@@ -1,7 +1,7 @@
 import { SignIn } from "./auth-components"
 import { auth } from "@/auth"
-import Logo from "./ui/logo";
-import ProfileIcon from "./ui/user/user-icon";
+import Logo from "./logo";
+import ProfileIcon from "./user/user-icon";
 
 export default async function Header() {
   const session = await auth();

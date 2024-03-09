@@ -1,36 +1,20 @@
 'use client'
 
-import { SignOut } from "@/components/auth-components"
+import { SignOut } from "@/app/components/ui/auth-components"
 import { User } from "next-auth";
 import { UserIconType } from "@/app/lib/definitions";
 import Image from "next/image";
-import { useState, useEffect, useRef, RefObject } from "react";
+import useDropdown from "@/app/hooks/useDropdown";
 
+// TODO: find a user.png image
 export default function ProfileIcon({ user } : { user: User }) {
-  const [showMenu, setShowMenu] = useState(false);
-  const dropdownRef: RefObject<HTMLDivElement> = useRef(null);
+  const { open, handleClickItem, dropdownRef } = useDropdown();
   const profileImage = user.image ? user.image : "/user.png";
-
-  function handleClickOutside(event: any) {
-    if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-      setShowMenu(false);
-    }
-  }
-
-  useEffect(() => {
-    document.addEventListener('click', handleClickOutside);
-
-    return () => {
-      document.removeEventListener('click', handleClickOutside);
-    };
-  }, []);
 
   return (
     <div className="relative inline-block" ref={dropdownRef}>
       <button 
-        // onFocus={() => setShowMenu(true)}
-        // onBlur={() => setShowMenu(false)}
-        onClick={() => setShowMenu(!showMenu)}
+        onClick={handleClickItem}
         type="button"
       >
         <Image
@@ -52,7 +36,7 @@ export default function ProfileIcon({ user } : { user: User }) {
       From: "transform opacity-100 scale-100"
       To: "transform opacity-0 scale-95"
   --> */}
-      { showMenu && 
+      { open && 
         <div className="absolute w-32 right-0 z-10 mt-2 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabIndex={-1}>
           <div className="py-1 text-right" role="none">
             {/* <!-- Active: "bg-gray-100 text-gray-900", Not Active: "text-gray-700" --> */}
@@ -64,17 +48,6 @@ export default function ProfileIcon({ user } : { user: User }) {
         </div>
       }
     </div>
-    // <div className="flex items-center">
-    //   <Image
-    //     src={profileImage}
-    //     alt="user avatar"
-    //     width={40}
-    //     height={40}
-    //     className="rounded-full"
-    //   />
-    //   <p>{user.name}</p>
-    //   <SignOut />
-    // </div>
   )
 }
 

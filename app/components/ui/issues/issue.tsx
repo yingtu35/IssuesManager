@@ -1,6 +1,6 @@
 import { EditIssue, CloseIssue, ClosedIssue, OpenState, ClosedState } from "./buttons";
 import { getIssue, getIssueComments } from "@/app/lib/actions";
-import Comment from "@/components/ui/comment/comment";
+import Comment from "@/app/components/ui/comment/comment";
 import { IssueBodyType } from "@/app/lib/definitions";
 import { calculateTimeElapsed } from "@/app/lib/utils";
 

@@ -1,9 +1,9 @@
 import { Metadata } from "next";
 import { IssuesSearchParams } from "@/app/lib/definitions";
-import Breadcrumbs from "@/components/ui/issues/breadcrumbs";
-import Issues from "@/components/ui/issues/issues";
-import Toolbar from "@/components/ui/toolbar";
-import { IssuesSkeleton } from "@/components/ui/skeletons";
+import Breadcrumbs from "@/app/components/ui/issues/breadcrumbs";
+import Issues from "@/app/components/ui/issues/issues";
+import Toolbar from "@/app/components/ui/toolbar";
+import { IssuesSkeleton } from "@/app/components/ui/skeletons";
 import { Suspense } from "react";
 
 export const metadata: Metadata = {

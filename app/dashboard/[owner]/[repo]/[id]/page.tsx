@@ -1,5 +1,5 @@
-import Breadcrumbs from "@/components/ui/issues/breadcrumbs";
-import Issue from "@/components/ui/issues/issue";
+import Breadcrumbs from "@/app/components/ui/issues/breadcrumbs";
+import Issue from "@/app/components/ui/issues/issue";
 
 export default async function Page({ 
   params 
