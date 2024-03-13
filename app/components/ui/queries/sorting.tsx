@@ -8,7 +8,6 @@ export default function Direction({ initialSort }: { initialSort: string | undef
   const { replace } = useRouter();
 
   const handleSortingChange = (value: string) => {
-    console.log(value);
     const params = new URLSearchParams(searchParams);
     if (value) {
       params.set('sorting', value);
@@ -23,10 +22,11 @@ export default function Direction({ initialSort }: { initialSort: string | undef
       <select
         id="sorting"
         name="sorting"
+        defaultValue={initialSort}
         onChange={(e) => handleSortingChange(e.target.value)}
         className="p-2 border border-gray-300 rounded-md"
       >
-        <option selected hidden>Sort by</option>
+        <option hidden>Sort by</option>
         <option value="created">Created</option>
         <option value="updated">Updated</option>
         <option value="comments">Comments</option>

@@ -9,7 +9,6 @@ export default function Filtering({ initialState }: { initialState: string | und
   
 
   const handleFilterChange = (value: string) => {
-    console.log(value);
     const params = new URLSearchParams(searchParams);
     if (value) {
       params.set('state', value);
@@ -24,10 +23,11 @@ export default function Filtering({ initialState }: { initialState: string | und
       <select
         id="filter"
         name="filter"
+        defaultValue={initialState}
         onChange={(e) => handleFilterChange(e.target.value)}
         className="p-2 border border-gray-300 rounded-md"
       >
-        <option selected hidden>Filter</option>
+        <option hidden>Filter by</option>
         <option value="all">All</option>
         <option value="open">Open</option>
         <option value="closed">Closed</option>

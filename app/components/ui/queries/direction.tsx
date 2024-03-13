@@ -8,7 +8,6 @@ export default function Direction({ initialDirection }: { initialDirection: stri
   const { replace } = useRouter();
 
   const handleDirectionChange = (value: string) => {
-    console.log(value);
     const params = new URLSearchParams(searchParams);
     if (value) {
       params.set('direction', value);
@@ -23,10 +22,11 @@ export default function Direction({ initialDirection }: { initialDirection: stri
       <select
         id="direction"
         name="direction"
+        defaultValue={initialDirection}
         onChange={(e) => handleDirectionChange(e.target.value)}
         className="p-2 border border-gray-300 rounded-md"
       >
-        <option selected hidden>Order by</option>
+        <option hidden>Order by</option>
         <option value="desc">new to old</option>
         <option value="asc">old to new</option>
       </select>

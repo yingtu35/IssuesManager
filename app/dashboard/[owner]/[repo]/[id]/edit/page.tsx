@@ -1,14 +1,30 @@
-import type { Metadata } from "next";
+import type { Metadata, ResolvingMetadata } from 'next';
 import Form from '@/app/components/ui/issues/edit-form';
 import Breadcrumbs from '@/app/components/ui/issues/breadcrumbs';
 import { getIssue } from '@/app/lib/actions';
 import { auth } from "@/auth"
 import { UserIcon as User } from '@/app/components/ui/user/user-icon';
 
-// TODO: try dynamic title
-export const metadata: Metadata = {
-  title: 'Edit Issue',
-  description: "Update issue for the authenticated user"
+type Props = {
+  params: { 
+    owner: string,
+    repo: string,
+    id: string
+  }
+  searchParams: { [key: string]: string | string[] | undefined }
+}
+ 
+export async function generateMetadata(
+  { params, searchParams }: Props,
+  parent: ResolvingMetadata
+): Promise<Metadata> {
+  // read route params
+  const { owner, repo, id } = params;
+  
+  return {
+    title: `${repo} #${id} | Edit`,
+    description: `Display issue ${repo} for the authenticated user`
+  }
 }
  
 export default async function Page({

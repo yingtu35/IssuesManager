@@ -7,7 +7,7 @@ import { IssuesSkeleton } from "@/app/components/ui/skeletons";
 import { Suspense } from "react";
 
 export const metadata: Metadata = {
-  title: "Dashboard",
+  title: "Issues Dashboard",
   description: "Dashboard shows all issues assigned to authenticated user."
 };
 
@@ -18,7 +18,6 @@ export default async function Dashboard({
 }) {
 
   return (
-    // <main className="flex min-h-screen flex-col items-center justify-between p-24">
     <main>
       <Breadcrumbs
         breadcrumbs={[
