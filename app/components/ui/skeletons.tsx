@@ -123,11 +123,21 @@ const CommentSkeleton = () => {
   )
 }
 
+export const CommentsSkeleton = () => {
+  return (
+    <div className="flex flex-col gap-20 mt-4">
+      <CommentSkeleton />
+      <CommentSkeleton />
+      <CommentSkeleton />
+    </div>
+  )
+}
+
 export const IssueSkeleton = () => {
   return (
     <>
       <IssueInfoSkeleton />
-      <CommentSkeleton />
+      <CommentsSkeleton />
     </>
   )
 }

@@ -1,10 +1,9 @@
 import { EditIssue, CloseIssue, ClosedIssue, OpenState, ClosedState } from "./buttons";
 import { getIssue, getIssueComments } from "@/app/lib/actions";
-import Comment from "@/app/components/ui/comment/comment";
 import { IssueBodyType } from "@/app/lib/definitions";
 import { calculateTimeElapsed } from "@/app/lib/utils";
+import CommentsTable from "../comment/table";
 
-// TODO: Use pagination for comments
 export default async function Issue({
   params, 
 }: {
@@ -15,7 +14,7 @@ export default async function Issue({
   },
 }){
   const { owner, repo, id } = params;
-  const [issue, comments] = await Promise.all([
+  const [issue, [comments, nextPageUrl]] = await Promise.all([
     getIssue(owner, repo, id),
     getIssueComments(owner, repo, id)
   ]);
@@ -51,21 +50,7 @@ export default async function Issue({
         </div>
         <div className="border-t-2 border-gray-300"></div>
       </div>
-      <div className="flex flex-col gap-20   mt-4">
-        <Comment comment={issueBody} />
-        {comments.map((comment: any) => {
-          const commentInfo = {
-            user: comment.user.login,
-            avatarUrl: comment.user.avatar_url,
-            body: comment.body,
-            createdAt: comment.created_at,
-            htmlUrl: comment.user.html_url
-          }
-          return (
-              <Comment comment={commentInfo} key={comment.id} />
-          )
-          })}
-      </div>
+      <CommentsTable issueBody={issueBody} initialComments={comments} nextPageUrl={nextPageUrl} />
     </>
   )
 }

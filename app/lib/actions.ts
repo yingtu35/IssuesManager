@@ -291,7 +291,14 @@ export async function getIssueComments(owner: string, repo: string, issue_number
     return [];
   }
 
-  const res = await fetch(`${baseUrl}/repos/${owner}/${repo}/issues/${issue_number}/comments`, {
+  const searchParams = {
+    per_page: "3",
+    page: "1",
+  };
+
+  const query = new URLSearchParams(searchParams).toString();
+
+  const res = await fetch(`${baseUrl}/repos/${owner}/${repo}/issues/${issue_number}/comments?${query}`, {
     method: 'GET',
     headers: {
       'X-GitHub-Api-Version': '2022-11-28',
@@ -301,5 +308,51 @@ export async function getIssueComments(owner: string, repo: string, issue_number
   });
   const data = await res.json();
   console.log("getIssueComments: ", data);
-  return data;
+
+  // get headers from response
+  const headers = res.headers;
+  // get the link header
+  const link = headers.get('link');
+  const pagesRemaining = link && link.includes(`rel=\"next\"`);
+  // extract the next page url from the link header
+  const nextPageUrlArray = link && link.match(/<([^>]+)>;\s*rel="next"/);
+  console.log("nextPageUrlArray:", nextPageUrlArray);
+  const nextPageUrl = nextPageUrlArray && nextPageUrlArray[1];
+
+  if (pagesRemaining) {
+    console.log('There are more pages of comments');
+  }
+  return [data, nextPageUrl];
+}
+
+export async function getMoreIssueComments(url: string) {
+  const session = await auth();
+  // console.log(session);
+  if (!session?.access_token) {
+    console.error('No access token found');
+    return [];
+  }
+
+  const res = await fetch(url, {
+    method: 'GET',
+    headers: {
+      'X-GitHub-Api-Version': '2022-11-28',
+      Authorization: `Bearer ${session.access_token}`,
+      Accept: 'application/vnd.github+json'
+    }
+  });
+
+  // get headers from response
+  const headers = res.headers;
+  // get the link header
+  const link = headers.get('link');
+  // const pagesRemaining = link && link.includes(`rel=\"next\"`);
+  // extract the next page url from the link header
+  const nextPageUrlArray = link && link.match(/<([^>]+)>;\s*rel="next"/);
+  console.log("nextPageUrlArray:", nextPageUrlArray);
+  const nextPageUrl = nextPageUrlArray && nextPageUrlArray[1];
+
+  const data = await res.json();
+  // console.log(data);
+  return [data, nextPageUrl];
 }
