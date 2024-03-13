@@ -12,7 +12,7 @@ export default function useIssues(
   const [nextPage, setNextPage] = useState(nextPageUrl);
 
   useEffect(() => {
-    console.log("nextPageUrl:", nextPageUrl);
+    // console.log("nextPageUrl:", nextPageUrl);
     setIssues(initialIssues);
     setNextPage(nextPageUrl); // Provide a default value of an empty string if nextPageUrl is null
   }, [initialIssues, nextPageUrl]);

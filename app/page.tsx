@@ -1,6 +1,8 @@
 import { Button } from "@/app/components/ui/button";
 import { authenticate } from "./lib/actions";
 
+// TODO: Adjust the layout
+// TODO: show loading spinner when clicking the button
 export default function Home() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">

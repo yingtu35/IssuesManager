@@ -11,7 +11,6 @@ export const metadata: Metadata = {
   description: "Update issue for the authenticated user"
 }
  
-// TODO: Add error page when getting issue or updating issue fails
 export default async function Page({
   params
 }: {

@@ -10,12 +10,11 @@ export const metadata: Metadata = {
   description: "Create an issue for the authenticated user"
 }
  
-// TODO: Add error page when getting repos or creating issue fails
 export default async function Page() {
   const session = await auth();
   if (!session) return { redirect: { destination: '/auth/signin', permanent: false } };
   const repos = await getRepos();
-  console.log("session at create issue: ", session);
+  // console.log("session at create issue: ", session);
   const user = {
     name: session.user.name as string,
     avatarUrl: session.user.image as string,

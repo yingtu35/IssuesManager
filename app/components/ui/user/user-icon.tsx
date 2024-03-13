@@ -5,11 +5,11 @@ import { User } from "next-auth";
 import { UserIconType } from "@/app/lib/definitions";
 import Image from "next/image";
 import useDropdown from "@/app/hooks/useDropdown";
+import defaultUser from "@/public/user.png";
 
-// TODO: find a user.png image
 export default function ProfileIcon({ user } : { user: User }) {
   const { open, handleClickItem, dropdownRef } = useDropdown();
-  const profileImage = user.image ? user.image : "/user.png";
+  const profileImage = user.image ? user.image : defaultUser;
 
   return (
     <div className="relative inline-block" ref={dropdownRef}>

@@ -12,7 +12,7 @@ export default function useComments(
   const [nextPage, setNextPage] = useState(nextPageUrl);
 
   useEffect(() => {
-    console.log("nextPageUrl:", nextPageUrl);
+    // console.log("nextPageUrl:", nextPageUrl);
     setComments(initialComments);
     setNextPage(nextPageUrl); // Provide a default value of an empty string if nextPageUrl is null
   }, [initialComments, nextPageUrl]);

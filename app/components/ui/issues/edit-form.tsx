@@ -123,6 +123,13 @@ export default function Form({
                 <Markdown className="prose lg:prose-xl">{bodyValue}</Markdown>
               </div>
             )}
+            <div id='form-error' aria-live='polite' aria-atomic='true'>
+              {state.message && (
+                <p className="p-2 text-sm text-red-500" key={state.message}>
+                  {state.message}
+                </p>
+              )}
+            </div>
           </div>
         </div>
         <div className="flex justify-end gap-4">
