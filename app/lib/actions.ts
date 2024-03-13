@@ -140,6 +140,7 @@ export async function getMoreIssues(url: string) {
 }
 
 export async function getIssue(owner: string, repo: string, number: string) {
+  await new Promise((resolve) => setTimeout(resolve, 1000));
   const session = await auth();
   console.log(session);
   if (!session?.access_token) {
@@ -161,6 +162,7 @@ export async function getIssue(owner: string, repo: string, number: string) {
 }
 
 export async function getRepos() {
+  await new Promise((resolve) => setTimeout(resolve, 1000));
   const session = await auth();
   console.log(session);
   if (!session?.access_token) {

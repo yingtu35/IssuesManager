@@ -55,13 +55,13 @@ export const UserIcon = ({ user } : { user: UserIconType }) => {
   const { name, avatarUrl, htmlUrl } = user;
   return (
     <a href={htmlUrl} target="_blank" rel="noopener noreferrer">
-        <Image
-          src={avatarUrl}
-          alt={`${name} icon`}
-          width={50}
-          height={50}
-          className="rounded-full border-2 border-blue-200"
-        />
-      </a>
+      <Image
+        src={avatarUrl}
+        alt={`${name} icon`}
+        width={50}
+        height={50}
+        className="rounded-full border-2 border-blue-200"
+      />
+    </a>
   )
 }

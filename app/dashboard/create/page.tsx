@@ -7,6 +7,7 @@ import { UserIcon as User } from '@/app/components/ui/user/user-icon';
 
 export const metadata: Metadata = {
   title: 'Create Issue',
+  description: "Create an issue for the authenticated user"
 }
  
 // TODO: Add error page when getting repos or creating issue fails

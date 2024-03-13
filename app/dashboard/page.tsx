@@ -8,11 +8,13 @@ import { Suspense } from "react";
 
 export const metadata: Metadata = {
   title: "Dashboard",
+  description: "Dashboard shows all issues assigned to authenticated user."
 };
 
 // TODO: Add a layout component to wrap the content
 // TODO: Add dashboard skeleton
 // TODO: Add create issue skeleton
+// TODO: Add an error page when fetch issues fails
 export default async function Dashboard({
   searchParams
 } : {

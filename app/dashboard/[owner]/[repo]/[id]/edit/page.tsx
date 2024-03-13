@@ -1,12 +1,14 @@
+import type { Metadata } from "next";
 import Form from '@/app/components/ui/issues/edit-form';
 import Breadcrumbs from '@/app/components/ui/issues/breadcrumbs';
 import { getIssue } from '@/app/lib/actions';
-import { Metadata } from 'next';
 import { auth } from "@/auth"
 import { UserIcon as User } from '@/app/components/ui/user/user-icon';
 
+// TODO: try dynamic title
 export const metadata: Metadata = {
-  title: 'Create Issue',
+  title: 'Edit Issue',
+  description: "Update issue for the authenticated user"
 }
  
 // TODO: Add error page when getting issue or updating issue fails

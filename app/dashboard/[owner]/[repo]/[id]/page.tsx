@@ -1,5 +1,12 @@
+import type { Metadata } from "next";
 import Breadcrumbs from "@/app/components/ui/issues/breadcrumbs";
 import Issue from "@/app/components/ui/issues/issue";
+
+// TODO: try dynamic title
+export const metadata: Metadata = {
+  title: "Issue",
+  description: "Display issue for the authenticated user",
+};
 
 export default async function Page({ 
   params 
