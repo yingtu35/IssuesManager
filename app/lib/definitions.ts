@@ -9,6 +9,7 @@ export type IssuesSearchParams = {
   direction?: string;
   per_page?: string;
   page?: string;
+  pulls: string;
 };
 
 export type IssueCardType = {

@@ -62,7 +62,7 @@ export async function getIssues(searchParams: IssuesSearchParams) {
   // add default values to searchParams if not provided
   searchParams = {
     ...searchParams,
-    filter: searchParams.filter || 'all',
+    filter: searchParams.filter || 'repos',
     state: searchParams.state || 'all',
     sort: searchParams.sort || 'created',
     direction: searchParams.direction || 'desc',
@@ -70,6 +70,7 @@ export async function getIssues(searchParams: IssuesSearchParams) {
     // since: searchParams.since || "1970-01-01T00:00:00Z",
     page: searchParams.page || "1",
     per_page: "10",
+    pulls: "false"
   };
   
   // console.log("searchParams:", searchParams);
@@ -168,6 +169,7 @@ export async function getIssue(owner: string, repo: string, number: string) {
       }
     });
     if (!res.ok) {
+      console.log(res.ok);
       console.error(`Error fetching issue ${repo}#${number}`);
       throw new Error(`Error fetching issue ${repo}#${number}`);
     }
