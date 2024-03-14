@@ -10,7 +10,7 @@ export function SignIn({
     <form
       action={authenticate}
     >
-      <Button {...props}>Sign In</Button>
+      <Button {...props}>Sign In with GitHub</Button>
     </form>
   )
 }

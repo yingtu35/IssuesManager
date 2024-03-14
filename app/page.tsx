@@ -1,20 +1,22 @@
-import { Button } from "@/app/components/ui/button";
-import { authenticate } from "./lib/actions";
+import Image from "next/image";
 
-// TODO: Adjust the layout
 // TODO: show loading spinner when clicking the button
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
+    <main className="flex min-h-screen flex-col items-center gap-8 p-6">
       <div>
-        <h1 className="text-4xl font-bold text-center">Welcome to Next.js</h1>
+        <h1 className="text-4xl font-bold text-center">Welcome to Issue manager!</h1>
         <p className="text-center">
-          Get started by editing <code>pages/index.js</code>
+          A simple issue manager for your GitHub repositories
         </p>
-        <form action={authenticate}>
-          <Button className="mt-4">Sign In</Button>
-        </form>
       </div>
+      <Image
+          src="/doing-desktop3.png"
+          width={1000}
+          height={760}
+          className="hidden md:block"
+          alt="Screenshots of the project showing desktop version"
+        />
     </main>
   );
 }
