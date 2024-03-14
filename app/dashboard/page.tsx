@@ -5,6 +5,7 @@ import Issues from "@/app/components/ui/issues/issues";
 import Toolbar from "@/app/components/ui/toolbar";
 import { IssuesSkeleton } from "@/app/components/ui/skeletons";
 import { Suspense } from "react";
+import BackToTop from "../components/ui/backToTop";
 
 export const metadata: Metadata = {
   title: "Issues Dashboard",
@@ -30,6 +31,7 @@ export default async function Dashboard({
           <Issues searchParams={searchParams} />
         </Suspense>
       </div>
+      <BackToTop />
     </main>
   );
 }
