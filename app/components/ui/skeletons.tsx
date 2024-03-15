@@ -5,7 +5,7 @@ const shimmer =
 const CardSkeleton = () => {
   return (
     <div className={`${shimmer} relative overflow-hidden rounded-xl bg-gray-300 p-2 shadow-sm`}>
-        <div className="flex justify-between items-start p-2">
+        <div className="flex justify-between items-start gap-1 p-2">
           <div className="flex flex-col gap-2">
             {/* <p className="text-4xl"><strong>{title}</strong></p> */}
             <div className="h-10 w-64 rounded-md bg-gray-200" />
@@ -13,8 +13,12 @@ const CardSkeleton = () => {
           </div>
             <div className="h-10 w-20 rounded-md bg-gray-200" />
         </div>
-        <div className="mt-2 flex justify-start gap-4 p-2">
+        <div className="hidden md:block mt-2 flex justify-start gap-4 p-2">
           <div className="h-5 w-80 rounded-md bg-gray-200" />
+        </div>
+        <div className="block md:hidden mt-2 flex flex-col justify-start gap-0.5 p-2">
+          <div className="h-5 w-40 rounded-md bg-gray-200" />
+          <div className="h-5 w-40 rounded-md bg-gray-200" />
         </div>
       </div>
   )
@@ -55,7 +59,7 @@ export const BreadcrumbSkeleton = () => {
 
 export const FormSkeleton = () => {
   return (
-    <div className="w-[656px]">
+    <div className="w-full md:w-[656px]">
       <div className={`${shimmer} relative overflow-hidden flex flex-col gap-2`}>
         <div className="h-6 w-64 rounded-md bg-gray-200" />
         <div className="h-10 w-full rounded-md bg-gray-200" />
@@ -89,8 +93,15 @@ export const UserSkeleton = () => {
 const IssueInfoSkeleton = () => {
   return (
     <div className={`${shimmer} relative overflow-hidden flex flex-col gap-4`}>
-      <div className="flex justify-between items-center">
+      <div className="hidden md:block flex justify-between items-center">
         <div className="h-10 w-48 rounded-md bg-gray-200" />
+        <div className="flex gap-4">
+          <ButtonSkeleton />
+          <ButtonSkeleton />
+        </div>
+      </div>
+      <div className="block md:hidden flex flex-col items-start gap-2">
+        <div className="h-8 w-48 rounded-md bg-gray-200" />
         <div className="flex gap-4">
           <ButtonSkeleton />
           <ButtonSkeleton />

@@ -34,8 +34,11 @@ export default async function Page() {
           },
         ]}
       />
-      <div className="flex gap-4 items-start">
+      <div className="hidden md:flex gap-4 items-start">
         <User user={user} />
+        <Form owner={owner} repos={repos} />
+      </div>
+      <div className="block md:hidden">
         <Form owner={owner} repos={repos} />
       </div>
     </main>

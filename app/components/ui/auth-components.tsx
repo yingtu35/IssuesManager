@@ -1,6 +1,5 @@
 import { Button } from "./button";
 import { authenticate, logOut } from "@/app/lib/actions";
-import Link from "next/link";
 
 export function SignIn({
   provider,

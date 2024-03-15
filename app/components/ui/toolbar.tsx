@@ -14,17 +14,31 @@ export default function Toolbar({
   const { state, direction, sort } = searchParams;
 
   return (
-    <div className="flex items-center justify-between gap-2">
-      <div className="flex items-center gap-2">
-        <Filtering initialState={state} />
-        <Direction initialDirection={direction} />
-        <Sorting initialSort={sort} />
+    <>
+      <div className="hidden md:flex items-center justify-between gap-2">
+        <div className="flex items-center gap-2">
+          <Filtering initialState={state} />
+          <Direction initialDirection={direction} />
+          <Sorting initialSort={sort} />
+        </div>
+        {/* <DateSince initialSince={since} /> */}
+        <div className="flex items-center gap-2">
+          <ResetToolbar />
+          <CreateIssue />
+        </div>
       </div>
-      {/* <DateSince initialSince={since} /> */}
-      <div className="flex items-center gap-2">
-        <ResetToolbar />
-        <CreateIssue />
+      <div className="flex flex-col gap-2 md:hidden">
+        <div className="flex items-center gap-2">
+          <Filtering initialState={state} />
+          <Direction initialDirection={direction} />
+          <Sorting initialSort={sort} />
+        </div>
+        {/* <DateSince initialSince={since} /> */}
+        <div className="flex items-center justify-center gap-2">
+          <ResetToolbar />
+          <CreateIssue />
+        </div>
       </div>
-    </div>
+    </>
   )
 }
