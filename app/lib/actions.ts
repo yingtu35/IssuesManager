@@ -102,15 +102,15 @@ export async function getIssues(searchParams: IssuesSearchParams) {
     const pagesRemaining = link && link.includes(`rel=\"next\"`);
     // extract the next page url from the link header
     const nextPageUrlArray = link && link.match(/<([^>]+)>;\s*rel="next"/);
-    console.log("nextPageUrlArray:", nextPageUrlArray);
+    // console.log("nextPageUrlArray:", nextPageUrlArray);
     const nextPageUrl = nextPageUrlArray && nextPageUrlArray[1];
   
     if (pagesRemaining) {
-      console.log('There are more pages of issues');
+      // console.log('There are more pages of issues');
     }
     
     const data = await res.json();
-    console.log("getIssues: ", data);
+    // console.log("getIssues: ", data);
     // if data 
     return [data, nextPageUrl];
   } catch (error) {
@@ -121,7 +121,7 @@ export async function getIssues(searchParams: IssuesSearchParams) {
 
 export async function getMoreIssues(url: string) {
   const session = await auth();
-  console.log(session);
+  // console.log(session);
   if (!session?.access_token) {
     console.error('No access token found');
     return [];
@@ -143,7 +143,7 @@ export async function getMoreIssues(url: string) {
   const pagesRemaining = link && link.includes(`rel=\"next\"`);
   // extract the next page url from the link header
   const nextPageUrlArray = link && link.match(/<([^>]+)>;\s*rel="next"/);
-  console.log("nextPageUrlArray:", nextPageUrlArray);
+  // console.log("nextPageUrlArray:", nextPageUrlArray);
   const nextPageUrl = nextPageUrlArray && nextPageUrlArray[1];
 
   const data = await res.json();
@@ -169,13 +169,13 @@ export async function getIssue(owner: string, repo: string, number: string) {
       }
     });
     if (!res.ok) {
-      console.log(res.ok);
+      // console.log(res.ok);
       console.error(`Error fetching issue ${repo}#${number}`);
       throw new Error(`Error fetching issue ${repo}#${number}`);
     }
   
     const data = await res.json();
-    console.log("getIssue: ", data);
+    // console.log("getIssue: ", data);
     return data;
   } catch (error) {
     console.error("Error fetching issue: ", error);
@@ -253,7 +253,7 @@ export async function createIssue(prevState: State, formData: FormData) {
     }
   }
   const data = await res.json();
-  console.log("createIssue: ", data);
+  // console.log("createIssue: ", data);
   const { number } = data;
   revalidatePath('/dashboard');
   redirect(`/dashboard/${owner}/${repo}/${number}`);
@@ -267,7 +267,7 @@ export async function updateIssue(prevState: State, formData: FormData) {
     console.error('No access token found');
     return [];
   }
-  
+  console.log(Object.fromEntries(formData.entries()));
   const validationResult = UpdateIssue.safeParse(Object.fromEntries(formData.entries()));
   if (!validationResult.success) {
     return {
@@ -282,7 +282,7 @@ export async function updateIssue(prevState: State, formData: FormData) {
     method: 'PATCH',
     headers: {
       'X-GitHub-Api-Version': '2022-11-28',
-      // Authorization: `Bearer ${session.access_token}`,
+      Authorization: `Bearer ${session.access_token}`,
       Accept: 'application/vnd.github+json'
     },
     body: JSON.stringify({
@@ -295,7 +295,7 @@ export async function updateIssue(prevState: State, formData: FormData) {
     }
   }
   const data = await res.json();
-  console.log("updateIssue: ", data);
+  // console.log("updateIssue: ", data);
   revalidatePath(`/dashboard/${owner}/${repo}/${issue_number}`);
   redirect(`/dashboard/${owner}/${repo}/${issue_number}`);
   return data;
@@ -303,7 +303,7 @@ export async function updateIssue(prevState: State, formData: FormData) {
 
 export async function closeIssue(owner: string, repo: string, issue_number: string) {
   const session = await auth();
-  console.log(session);
+  // console.log(session);
   if (!session?.access_token) {
     console.error('No access token found');
     return [];
@@ -321,13 +321,13 @@ export async function closeIssue(owner: string, repo: string, issue_number: stri
     })
   });
   const data = await res.json();
-  console.log("closeIssue: ", data);
+  // console.log("closeIssue: ", data);
   revalidatePath(`/dashboard/${owner}/${repo}/${issue_number}`);
 }
 
 export async function getIssueComments(owner: string, repo: string, issue_number: string) {
   const session = await auth();
-  console.log(session);
+  // console.log(session);
   if (!session?.access_token) {
     console.error('No access token found');
     return [];
@@ -349,7 +349,7 @@ export async function getIssueComments(owner: string, repo: string, issue_number
     }
   });
   const data = await res.json();
-  console.log("getIssueComments: ", data);
+  // console.log("getIssueComments: ", data);
 
   // get headers from response
   const headers = res.headers;
@@ -358,11 +358,11 @@ export async function getIssueComments(owner: string, repo: string, issue_number
   const pagesRemaining = link && link.includes(`rel=\"next\"`);
   // extract the next page url from the link header
   const nextPageUrlArray = link && link.match(/<([^>]+)>;\s*rel="next"/);
-  console.log("nextPageUrlArray:", nextPageUrlArray);
+  // console.log("nextPageUrlArray:", nextPageUrlArray);
   const nextPageUrl = nextPageUrlArray && nextPageUrlArray[1];
 
   if (pagesRemaining) {
-    console.log('There are more pages of comments');
+    // console.log('There are more pages of comments');
   }
   return [data, nextPageUrl];
 }
@@ -391,7 +391,7 @@ export async function getMoreIssueComments(url: string) {
   // const pagesRemaining = link && link.includes(`rel=\"next\"`);
   // extract the next page url from the link header
   const nextPageUrlArray = link && link.match(/<([^>]+)>;\s*rel="next"/);
-  console.log("nextPageUrlArray:", nextPageUrlArray);
+  // console.log("nextPageUrlArray:", nextPageUrlArray);
   const nextPageUrl = nextPageUrlArray && nextPageUrlArray[1];
 
   const data = await res.json();

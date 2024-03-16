@@ -1,15 +1,24 @@
+"use client"
+
 import { Button } from "./button";
 import { authenticate, logOut } from "@/app/lib/actions";
+import useLoadingButton from "@/app/hooks/useLoadingButton";
+import { Loader } from "./loader";
 
 export function SignIn({
   provider,
   ...props
 }: { provider?: string } & React.ComponentPropsWithRef<typeof Button>) {
+  const { loading, disabled, handleButtonClick } = useLoadingButton(authenticate);
+
   return (
     <form
-      action={authenticate}
+      action={handleButtonClick}
     >
-      <Button {...props}>Sign In with GitHub</Button>
+      <Button {...props} disabled={disabled} className="disabled:bg-gray-300">
+        {loading && <Loader />}
+        Sign In with GitHub
+      </Button>
     </form>
   )
 }

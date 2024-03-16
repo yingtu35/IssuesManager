@@ -94,8 +94,8 @@ const IssueInfoSkeleton = () => {
   return (
     <div className={`${shimmer} relative overflow-hidden flex flex-col gap-4`}>
       <div className="hidden md:block flex justify-between items-center">
-        <div className="h-10 w-48 rounded-md bg-gray-200" />
-        <div className="flex gap-4">
+        <div className="h-10 w-96 rounded-md bg-gray-200" />
+        <div className="mt-1 flex gap-4">
           <ButtonSkeleton />
           <ButtonSkeleton />
         </div>

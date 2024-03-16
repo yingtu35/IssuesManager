@@ -87,7 +87,7 @@ export default function Form({ owner, repos }: { owner: string, repos: any[] }){
               <WriteButton onClick={() => toggleEdit(true)} className={edit ? "z-10 border-2 border-gray-400 rounded-t-md bg-gray-400" : "hover:text-slate-600"} />
               <PreviewButton onClick={() => toggleEdit(false)} className={edit ? "hover:text-slate-600" : "z-10 border-2 border-gray-400 rounded-t-md bg-gray-400"} />
             </div>
-            { edit ? (
+            {edit ? (
               <div className="flex flex-col m-1">
                 <textarea 
                   id="body" 
@@ -107,9 +107,12 @@ export default function Form({ owner, repos }: { owner: string, repos: any[] }){
                 </div>
               </div>
             ) : (
-              <div className="box-border p-2 w-full h-64 max-h-80">
-                <Markdown className="prose lg:prose-xl">{bodyValue}</Markdown>
-              </div>
+              <>
+                <input type="hidden" name="body" value={bodyValue} readOnly />
+                <div className={`box-border p-2 w-full h-64 max-h-80`}>
+                  <Markdown className="prose lg:prose-xl">{bodyValue}</Markdown>
+                </div>
+              </>
             )}
             <div id='form-error' aria-live='polite' aria-atomic='true'>
               {state.message && (
