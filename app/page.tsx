@@ -1,6 +1,7 @@
 import Image from "next/image";
 
-// TODO: show loading spinner when clicking the button
+// TODO: complete README
+// TODO: improve web vitals
 export default function Home() {
   return (
     <main className="flex min-h-screen flex-col items-center gap-16 p-6">

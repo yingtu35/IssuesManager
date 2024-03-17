@@ -43,7 +43,7 @@ export const CancelCreate = () => {
   return (
     <Link
       href="/dashboard"
-      className="flex h-10 items-center rounded-lg bg-gray-100 px-4 text-sm font-medium text-gray-600 transition-colors hover:bg-gray-200"
+      className="flex h-10 items-center rounded-lg bg-gray-100 px-4 text-sm font-medium text-black transition-colors hover:bg-gray-200"
     >
       Cancel
     </Link>
@@ -54,7 +54,7 @@ export const CancelEdit = ({ owner, repo, id }: { owner: string, repo: string, i
   return (
     <Link
       href={`/dashboard/${owner}/${repo}/${id}`}
-      className="flex h-10 items-center rounded-lg bg-gray-100 px-4 text-sm font-medium text-gray-600 transition-colors hover:bg-gray-200"
+      className="flex h-10 items-center rounded-lg bg-gray-100 px-4 text-sm font-medium text-black transition-colors hover:bg-gray-200"
     >
       Cancel
     </Link>
@@ -110,5 +110,29 @@ export const PreviewButton = ({
 }) => {
   return (
     <TabButton type="button" className={className} onClick={onClick}>Preview</TabButton>
+  )
+}
+
+export const GoBackButton = () => {
+  return (
+    <Button
+      className="mt-4 rounded-md bg-gray-100 px-4 py-2 text-sm text-black transition-colors hover:bg-gray-200"
+      onClick={() => window.history.back()}>
+      Go Back
+    </Button>
+  )
+}
+
+export const TryAgainButton = ({ reset }: { reset: () => void }) => {
+  return (
+    <Button
+      className="mt-4 rounded-md bg-blue-500 px-4 py-2 text-sm text-white transition-colors hover:bg-blue-400"
+      onClick={
+        // Attempt to recover by trying to re-render the invoices route
+        () => reset()
+      }
+    >
+      Try again
+    </Button>
   )
 }
