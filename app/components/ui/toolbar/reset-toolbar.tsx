@@ -1,6 +1,6 @@
 'use client'
 
-import { Button } from "./button";
+import { Button } from "../button";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 
 export default function ResetToolbar({ handleReset }: { handleReset: () => void }){

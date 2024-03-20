@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import { IssuesSearchParams } from "@/app/lib/definitions";
 import Breadcrumbs from "@/app/components/ui/issues/breadcrumbs";
 import Issues from "@/app/components/ui/issues/issues";
-import Toolbar from "@/app/components/ui/toolbar";
+import Toolbar from "@/app/components/ui/toolbar/toolbar";
 import { IssuesSkeleton } from "@/app/components/ui/skeletons";
 import { Suspense } from "react";
 
@@ -25,7 +25,7 @@ export default async function Dashboard({
         ]}
       />
       <div className="flex flex-col gap-4">
-        <Toolbar searchParams={searchParams} />
+        <Toolbar />
         <Suspense fallback={<IssuesSkeleton />}>
           <Issues searchParams={searchParams} />
         </Suspense>

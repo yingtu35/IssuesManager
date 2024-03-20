@@ -1,5 +1,6 @@
 import Image from "next/image";
 
+// TODO: error handling when actions fail
 // TODO: complete README
 // TODO: improve web vitals
 export default function Home() {

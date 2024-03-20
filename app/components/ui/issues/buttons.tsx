@@ -30,7 +30,7 @@ export const CloseIssue = ({ owner, repo, id }: { owner: string, repo: string, i
   const closeIssueWithParams = closeIssue.bind(null, owner, repo, id);
   return (
     <form action={closeIssueWithParams}>
-      <Button className="bg-red-500 hover:bg-red-400">Close</Button>
+      <Button className="bg-red-500 hover:bg-red-400 active:bg-red-600">Close</Button>
     </form>
   )
 }

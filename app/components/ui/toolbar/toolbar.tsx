@@ -4,9 +4,9 @@ import { ToolbarParams } from "@/app/lib/definitions";
 import { defaultParams } from "@/app/lib/data";
 import { useSearchParams, usePathname, useRouter } from 'next/navigation';
 import { useState } from "react";
-import Filtering from "@/app/components/ui/queries/filtering";
-import Direction from "@/app/components/ui/queries/direction";
-import Sorting from "@/app/components/ui/queries/sorting";
+import Filtering from "@/app/components/ui/toolbar/filtering";
+import Direction from "@/app/components/ui/toolbar/direction";
+import Sorting from "@/app/components/ui/toolbar/sorting";
 import ResetToolbar from "./reset-toolbar";
 import { CreateIssue } from "@/app/components/ui/issues/buttons";
 
