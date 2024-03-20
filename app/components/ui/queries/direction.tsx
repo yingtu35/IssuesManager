@@ -1,20 +1,15 @@
 'use client'
 
-import { useSearchParams, usePathname, useRouter } from 'next/navigation';
+export default function Direction({ 
+  direction,
+  onDirectionChange,
+  }: { 
+  direction: string | undefined,
+  onDirectionChange: (type: string, value: string) => void
+  }) {
 
-export default function Direction({ initialDirection }: { initialDirection: string | undefined }) {
-  const searchParams = useSearchParams();
-  const pathname = usePathname();
-  const { replace } = useRouter();
-
-  const handleDirectionChange = (value: string) => {
-    const params = new URLSearchParams(searchParams);
-    if (value) {
-      params.set('direction', value);
-    } else {
-      params.delete('direction');
-    }
-    replace(`${pathname}?${params.toString()}`)
+  function handleDirectionChange(value: string) {
+    onDirectionChange('direction', value);
   }
 
   return (
@@ -22,7 +17,7 @@ export default function Direction({ initialDirection }: { initialDirection: stri
       <select
         id="direction"
         name="direction"
-        defaultValue={initialDirection}
+        value={direction}
         onChange={(e) => handleDirectionChange(e.target.value)}
         className="p-2 border border-gray-300 rounded-md"
       >

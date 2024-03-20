@@ -38,3 +38,9 @@ export type UserIconType = {
   avatarUrl: string;
   htmlUrl: string;
 }
+
+export type ToolbarParams = {
+  state: string;
+  direction: string;
+  sort: string;
+}

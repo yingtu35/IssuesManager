@@ -1,20 +1,18 @@
 'use client'
 
-import { useSearchParams, usePathname, useRouter } from 'next/navigation';
+import { on } from "events";
 
-export default function Direction({ initialSort }: { initialSort: string | undefined }) {
-  const searchParams = useSearchParams();
-  const pathname = usePathname();
-  const { replace } = useRouter();
+export default function Direction({ 
+  sort,
+  onSortChange,
+ }: { 
+  sort: string | undefined,
+  onSortChange: (type: string, value: string) => void
+  }) {
+  
 
-  const handleSortingChange = (value: string) => {
-    const params = new URLSearchParams(searchParams);
-    if (value) {
-      params.set('sorting', value);
-    } else {
-      params.delete('sorting');
-    }
-    replace(`${pathname}?${params.toString()}`)
+  function handleSortingChange(value: string) {
+    onSortChange('sort', value);
   }
 
   return (
@@ -22,7 +20,7 @@ export default function Direction({ initialSort }: { initialSort: string | undef
       <select
         id="sorting"
         name="sorting"
-        defaultValue={initialSort}
+        value={sort}
         onChange={(e) => handleSortingChange(e.target.value)}
         className="p-2 border border-gray-300 rounded-md"
       >

@@ -1,21 +1,14 @@
 'use client'
 
-import { useSearchParams, usePathname, useRouter } from 'next/navigation';
-
-export default function Filtering({ initialState }: { initialState: string | undefined }) {
-  const searchParams = useSearchParams();
-  const pathname = usePathname();
-  const { replace } = useRouter();
-  
-
-  const handleFilterChange = (value: string) => {
-    const params = new URLSearchParams(searchParams);
-    if (value) {
-      params.set('state', value);
-    } else {
-      params.delete('state');
-    }
-    replace(`${pathname}?${params.toString()}`)
+export default function Filtering({ 
+  state,
+  onStateChange, 
+}: {
+  state: string | undefined,
+  onStateChange: (type: string, value: string) => void
+}) {
+  function handleFilterChange(value: string) {
+    onStateChange('state', value);
   }
 
   return (
@@ -23,7 +16,7 @@ export default function Filtering({ initialState }: { initialState: string | und
       <select
         id="filter"
         name="filter"
-        defaultValue={initialState}
+        value={state}
         onChange={(e) => handleFilterChange(e.target.value)}
         className="p-2 border border-gray-300 rounded-md"
       >
