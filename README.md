@@ -149,7 +149,7 @@ To run the application in your host machine, make sure **npm** is set up.
 
 Enjoy the short 2-min demo to see how IssuesManager works.
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/uHcBTmiAhqQ?si=Xic7GlboVB8o5xiv&amp;start=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+[![Issues Manager Demo](https://img.youtube.com/vi/uHcBTmiAhqQ/0.jpg)](https://www.youtube.com/watch?v=uHcBTmiAhqQ)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
