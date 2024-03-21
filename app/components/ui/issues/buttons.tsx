@@ -1,8 +1,11 @@
+'use client'
+
 import { Button, TabButton } from "../button";
 import Link from "next/link";
 import { closeIssue } from "@/app/lib/actions";
 import { CheckCircleIcon, MinusCircleIcon, PlusIcon } from "@heroicons/react/24/outline";
 import { MouseEventHandler } from "react";
+import { toast } from "sonner";
 
 export const CreateIssue = () => {
   return (
@@ -28,9 +31,16 @@ export const EditIssue = ({ owner, repo, id }: { owner: string, repo: string, id
 
 export const CloseIssue = ({ owner, repo, id }: { owner: string, repo: string, id: string}) => {
   const closeIssueWithParams = closeIssue.bind(null, owner, repo, id);
+  const handleCloseIssue = () => {
+    toast.promise(closeIssueWithParams, {
+      loading: "Closing...",
+      success: "Issue closed! Page will refresh immediately.",
+      error: "Failed to close issue. Please try again."
+    });
+  }
   return (
-    <form action={closeIssueWithParams}>
-      <Button className="bg-red-500 hover:bg-red-400">Close</Button>
+    <form action={handleCloseIssue}>
+      <Button className="bg-red-500 hover:bg-red-400 active:bg-red-600">Close</Button>
     </form>
   )
 }

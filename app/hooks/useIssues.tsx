@@ -21,7 +21,7 @@ export default function useIssues(
   useEffect(() => {
     async function fetchMoreIssues() {
       if (inView) {
-        console.log("fetch more issues");
+        // console.log("fetch more issues");
         // await new Promise((resolve) => setTimeout(resolve, 1000));
         if (nextPage) {
           const [moreIssues, nextUrl] = await getMoreIssues(nextPage);

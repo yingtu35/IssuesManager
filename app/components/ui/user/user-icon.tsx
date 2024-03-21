@@ -37,7 +37,7 @@ export default function ProfileIcon({ user } : { user: User }) {
       To: "transform opacity-0 scale-95"
   --> */}
       { open && 
-        <div className="absolute w-screen md:w-24 right-0 z-10 mt-2 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabIndex={-1}>
+        <div className="absolute w-screen md:w-auto right-0 z-10 mt-2 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabIndex={-1}>
           <div className="py-1 text-center" role="none">
             {/* <!-- Active: "bg-gray-100 text-gray-900", Not Active: "text-gray-700" --> */}
             <p className="text-gray-700 block px-4 py-2 text-sm" tabIndex={-1} id="menu-header">Sign in as <strong>{user.name}</strong></p>

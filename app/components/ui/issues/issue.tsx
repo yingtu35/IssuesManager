@@ -37,7 +37,7 @@ export default async function Issue({
         <div className="hidden md:block flex justify-between items-center">
           <p className="text-4xl font-bold">{title}</p>
           { state === "open" && (
-            <div className="flex gap-4">
+            <div className="mt-1 flex gap-4">
               <EditIssue owner={owner} repo={repo} id={id} />
               <CloseIssue owner={owner} repo={repo} id={id} />
             </div>

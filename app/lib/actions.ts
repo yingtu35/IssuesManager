@@ -111,7 +111,6 @@ export async function getIssues(searchParams: IssuesSearchParams) {
     
     const data = await res.json();
     // console.log("getIssues: ", data);
-    // if data 
     return [data, nextPageUrl];
   } catch (error) {
     console.error("Error fetching issues: ", error);
@@ -309,20 +308,26 @@ export async function closeIssue(owner: string, repo: string, issue_number: stri
     return [];
   }
   
-  const res = await fetch(`${baseUrl}/repos/${owner}/${repo}/issues/${issue_number}`, {
-    method: 'PATCH',
-    headers: {
-      'X-GitHub-Api-Version': '2022-11-28',
-      Authorization: `Bearer ${session.access_token}`,
-      Accept: 'application/vnd.github+json'
-    },
-    body: JSON.stringify({
-      owner, repo, state: 'closed'
-    })
-  });
-  const data = await res.json();
-  // console.log("closeIssue: ", data);
-  revalidatePath(`/dashboard/${owner}/${repo}/${issue_number}`);
+  try {
+    const res = await fetch(`${baseUrl}/repos/${owner}/${repo}/issues/${issue_number}`, {
+      method: 'PATCH',
+      headers: {
+        'X-GitHub-Api-Version': '2022-11-28',
+        Authorization: `Bearer ${session.access_token}`,
+        Accept: 'application/vnd.github+json'
+      },
+      body: JSON.stringify({
+        owner, repo, state: 'closed'
+      })
+    });
+    if (!res.ok) {
+      throw new Error('Error closing issue');
+    }
+    revalidatePath(`/dashboard/${owner}/${repo}/${issue_number}`);
+  } catch (error) {
+    console.error("Error closing issue: ", error);
+    throw new Error("Error closing issue");
+  }
 }
 
 export async function getIssueComments(owner: string, repo: string, issue_number: string) {
