@@ -111,7 +111,6 @@ export async function getIssues(searchParams: IssuesSearchParams) {
     
     const data = await res.json();
     // console.log("getIssues: ", data);
-    // if data 
     return [data, nextPageUrl];
   } catch (error) {
     console.error("Error fetching issues: ", error);

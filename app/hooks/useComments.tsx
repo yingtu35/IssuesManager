@@ -21,7 +21,7 @@ export default function useComments(
   useEffect(() => {
     async function fetchMoreComments() {
       if (inView) {
-        console.log("fetch more comments");
+        // console.log("fetch more comments");
         // await new Promise((resolve) => setTimeout(resolve, 1000));
         if (nextPage) {
           const [moreComments, nextUrl] = await getMoreIssueComments(nextPage);
