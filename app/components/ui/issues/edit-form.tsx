@@ -121,7 +121,7 @@ export default function Form({
             ) : (
               <>
                 <input type="hidden" id="body" name="body" value={bodyValue} readOnly />
-                <div className="box-border p-2 w-full h-64 max-h-80">
+                <div className="box-border p-2 w-full h-64 max-h-80 overflow-scroll">
                   <Markdown className="prose lg:prose-xl">{bodyValue}</Markdown>
                 </div>
               </>

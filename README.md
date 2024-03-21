@@ -31,7 +31,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/yingtu35/IssuesManager">
-    <img src="public/logo.png" alt="Logo" width="150" height="150">
+    <img src="public/doing-mobile.png" alt="Logo" width="300" height="300">
   </a>
 
 <h3 align="center">Issues Manager
@@ -43,7 +43,7 @@
     <a href="https://github.com/yingtu35/IssuesManager"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/yingtu35/IssuesManager">View Demo</a>
+    <a href="#demo">View Demo</a>
     ·
     <a href="https://github.com/yingtu35/IssuesManager/issues">Report Bug</a>
     ·
@@ -63,14 +63,8 @@
         <li><a href="#built-with">Built With</a></li>
       </ul>
     </li>
-    <li>
-      <a href="#getting-started">Getting Started</a>
-      <ul>
-        <li><a href="#prerequisites">Prerequisites</a></li>
-        <li><a href="#installation">Installation</a></li>
-      </ul>
-    </li>
     <li><a href="#usage">Usage</a></li>
+    <li><a href="#demo">Demo</a></li>
     <li><a href="#roadmap">Roadmap</a></li>
     <li><a href="#contributing">Contributing</a></li>
     <li><a href="#license">License</a></li>
@@ -84,7 +78,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
+[![Product Name Screen Shot][product-screenshot]](https://github.com/yingtu35/IssuesManager)
 
 IssuesManager is an application allowing GitHub users to manage issues in one single site.
 
@@ -106,83 +100,56 @@ Treating issues as blogs, users can create, edit, and close on issues. Users can
 
 
 
-<!-- GETTING STARTED -->
-## Getting Started
+<!-- USAGE -->
+## Usage
 
-Follow these steps to run the application in your host machine or inside Docker containers.
+You can try out the app in the following URL:
+https://issues-manager-zeta.vercel.app/
+
+Follow these steps to run the application in your host machine
 
 ### Prerequisites
 
-To run the application in your host machine, you need to have **npm** set up. Otherwise, you can choose to use Docker,
+To run the application in your host machine, make sure **npm** is set up. 
 * **npm**
   
-  Recommend using nvm for Node version management
+  Recommend using [nvm][nvm-url] for Node version management
 
-  [nvm][nvm-url]
-* **Docker**
-  
-  Use docker to easily build, and run the application
-
-  [Docker][Docker.com]
 
 ### Installation
-* **Run in the host machine**
 1. Clone the repo
    ```sh
    git clone https://github.com/yingtu35/IssuesManager.git
    ```
-2. Install NPM packages on both backend and frontend folders
+2. Install depedencies
    ```sh
    npm install
    ```
-3. Create a .env file in the backend folder for mongodb url and jwt secret
+3. Create a .env file in the root folder for jwt secret
    ```sh
-   TEST_MONGODB_URL=paste your testing mongo url here
-   MONGODB_URL=paste your mongodb url here
-   SECRET=paste your jwt secret here
+   AUTH_SECRET=yourJwtSecret
    ```
-4. Create a .env file in the frontend folder for connection to the backend service
+4. Follow [Creating an OAuth App][OAuth-url] to create an OAuth app. Add the corresponding GitHub ID and secret into the .env file
     ```sh
-    REACT_APP_BACKEND_URL=http://localhost:portForYourBackend
+    AUTH_GITHUB_ID=yourGitHubID
+    AUTH_GITHUB_SECRET=yourGitHubSecret
     ```
-5. Start both server in the development mode
-    * backend
-      ```sh
-      npm run start:test
-      ```
-     * frontend
-       ```sh
-       npm start
-       ```
+5. Start the application
+    ```sh
+    npm run dev
+    ```
 
-* **Run in Docker**
-1. Clone the repo
-   ```sh
-   git clone https://github.com/yingtu35/IssuesManager.git
-   ```
-2. In IssuesManager directory, run the container in either development mode or production mode
-     * development
-        ```sh
-        docker compose -f docker-compose.dev.yml up
-        ```
-     * production
-        ```sh
-        docker compose up
-        ```
-  
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
 
-<!-- USAGE EXAMPLES -->
-## Usage
+<!-- DEMO -->
+## Demo
 
 Enjoy the short 2-min demo to see how IssuesManager works.
 
-[Demo][demo-url]
-
-[![IssuesManager demo](images/video%20thumbnail.png)](http://www.youtube.com/watch?v=MnJX33HtIVE "IssuesManager demo")
+<iframe width="560" height="315" src="https://www.youtube.com/embed/uHcBTmiAhqQ?si=Xic7GlboVB8o5xiv&amp;start=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -191,11 +158,8 @@ Enjoy the short 2-min demo to see how IssuesManager works.
 <!-- ROADMAP -->
 ## Roadmap
 
-- [ ] Add sign up UI 
-- [ ] Search bar for blogs
-- [ ] Search bar for users
-- [ ] Better view for comments
-- [ ] Deploy to a remote server
+- [ ] Better page transition
+  - [ ] Reduce page loading time
     <!-- - [ ] Nested Feature -->
 
 See the [open issues](https://github.com/yingtu35/IssuesManager/issues) for a full list of proposed features (and known issues).
@@ -225,7 +189,7 @@ Don't forget to give the project a star! Thanks again!
 <!-- LICENSE -->
 ## License
 
-Distributed under the MIT License. See `LICENSE.txt` for more information.
+Distributed under the MIT License. See `LICENSE.md` for more information.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -240,7 +204,7 @@ Twitter: [@YingTu1685990](https://twitter.com/YingTu1685990)
 
 LinkedIn: [Ying Tu](https://www.linkedin.com/in/yingtu/)
 
-Project Link: [IssuesManager](https://github.com/yingtu35/IssuesManager)
+Project Link: [IssuesManager](https://issues-manager-zeta.vercel.app/)
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -256,10 +220,11 @@ Project Link: [IssuesManager](https://github.com/yingtu35/IssuesManager)
 [issues-shield]: https://img.shields.io/github/issues/yingtu35/IssuesManager.svg?style=for-the-badge
 [issues-url]: https://github.com/yingtu35/IssuesManager/issues
 [license-shield]: https://img.shields.io/github/license/yingtu35/IssuesManager.svg?style=for-the-badge
-[license-url]: https://github.com/yingtu35/IssuesManager/blob/master/LICENSE.txt
+[license-url]: https://github.com/yingtu35/IssuesManager/blob/main/LICENSE.md
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=0A66C2
 [linkedin-url]: https://linkedin.com/in/yingtu
 [product-screenshot]: public/doing-desktop3.png
+[product-screenshot2]: public/doing-mobile.png
 [React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
 [React-url]: https://reactjs.org/
 [Tailwind.com]: https://img.shields.io/badge/tailwindcss-06B6D4?style=for-the-badge&logo=Tailwindcss&logoColor=white
@@ -270,5 +235,7 @@ Project Link: [IssuesManager](https://github.com/yingtu35/IssuesManager)
 [TypeScript-url]: https://www.typescriptlang.org/
 [Zod.dev]: https://img.shields.io/badge/Zod-3E67B1?style=for-the-badge&logo=zod&logoColor=white
 [Zod-url]: https://zod.dev/
+[nvm-url]: https://github.com/nvm-sh/nvm
+[OAuth-url]: https://docs.github.com/en/apps/oauth-apps/building-oauth-apps/creating-an-oauth-app
 [demo-url]: https://youtu.be/sCE-lH05nV4
 ****
