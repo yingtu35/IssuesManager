@@ -1,5 +1,5 @@
 import Form from '@/app/components/ui/issues/create-form';
-import Breadcrumbs from '@/app/components/ui/issues/breadcrumbs';
+import Breadcrumbs from '@/app/components/ui/breadcrumbs';
 import { getRepos } from '@/app/lib/actions';
 import { Metadata } from 'next';
 import { auth } from "@/auth"
@@ -14,7 +14,6 @@ export default async function Page() {
   const session = await auth();
   if (!session) return { redirect: { destination: '/auth/signin', permanent: false } };
   const repos = await getRepos();
-  // console.log("session at create issue: ", session);
   const user = {
     name: session.user.name as string,
     avatarUrl: session.user.image as string,

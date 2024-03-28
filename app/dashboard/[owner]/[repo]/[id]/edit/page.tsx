@@ -1,6 +1,6 @@
 import type { Metadata, ResolvingMetadata } from 'next';
 import Form from '@/app/components/ui/issues/edit-form';
-import Breadcrumbs from '@/app/components/ui/issues/breadcrumbs';
+import Breadcrumbs from '@/app/components/ui/breadcrumbs';
 import { getIssue } from '@/app/lib/actions';
 import { auth } from "@/auth"
 import { UserIcon as User } from '@/app/components/ui/user/user-icon';

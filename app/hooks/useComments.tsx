@@ -12,7 +12,6 @@ export default function useComments(
   const [nextPage, setNextPage] = useState(nextPageUrl);
 
   useEffect(() => {
-    // console.log("nextPageUrl:", nextPageUrl);
     setComments(initialComments);
     setNextPage(nextPageUrl); // Provide a default value of an empty string if nextPageUrl is null
   }, [initialComments, nextPageUrl]);
@@ -21,8 +20,6 @@ export default function useComments(
   useEffect(() => {
     async function fetchMoreComments() {
       if (inView) {
-        // console.log("fetch more comments");
-        // await new Promise((resolve) => setTimeout(resolve, 1000));
         if (nextPage) {
           const [moreComments, nextUrl] = await getMoreIssueComments(nextPage);
           setComments([...comments, ...moreComments]);

@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import { IssuesSearchParams } from "@/app/lib/definitions";
-import Breadcrumbs from "@/app/components/ui/issues/breadcrumbs";
+import Breadcrumbs from "@/app/components/ui/breadcrumbs";
 import Issues from "@/app/components/ui/issues/issues";
 import Toolbar from "@/app/components/ui/toolbar/toolbar";
 import { IssuesSkeleton } from "@/app/components/ui/skeletons";

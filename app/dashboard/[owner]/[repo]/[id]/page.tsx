@@ -1,5 +1,5 @@
 import type { Metadata, ResolvingMetadata } from 'next';
-import Breadcrumbs from "@/app/components/ui/issues/breadcrumbs";
+import Breadcrumbs from "@/app/components/ui/breadcrumbs";
 import Issue from "@/app/components/ui/issues/issue";
 
 type Props = {

@@ -12,7 +12,6 @@ export default function useIssues(
   const [nextPage, setNextPage] = useState(nextPageUrl);
 
   useEffect(() => {
-    // console.log("nextPageUrl:", nextPageUrl);
     setIssues(initialIssues);
     setNextPage(nextPageUrl); // Provide a default value of an empty string if nextPageUrl is null
   }, [initialIssues, nextPageUrl]);
@@ -21,8 +20,6 @@ export default function useIssues(
   useEffect(() => {
     async function fetchMoreIssues() {
       if (inView) {
-        // console.log("fetch more issues");
-        // await new Promise((resolve) => setTimeout(resolve, 1000));
         if (nextPage) {
           const [moreIssues, nextUrl] = await getMoreIssues(nextPage);
           setIssues([...issues, ...moreIssues]);

@@ -1,4 +1,4 @@
-// This file contains type definitions for your data.
+// This file contains type definitions for the data.
 // It describes the shape of the data, and what data type each property should accept.
 
 export type IssuesSearchParams = {
@@ -43,4 +43,19 @@ export type ToolbarParams = {
   state: string;
   direction: string;
   sort: string;
+}
+
+export type GetReposParams = {
+  sort: string;
+  direction: string;
+}
+
+export type FormState = {
+  errors?: {
+    owner?: string[];
+    repo?: string[];
+    title?: string[];
+    body?: string[];
+  };
+  message?: string | null;
 }

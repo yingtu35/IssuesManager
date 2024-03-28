@@ -61,6 +61,7 @@
       <a href="#about-the-project">About The Project</a>
       <ul>
         <li><a href="#built-with">Built With</a></li>
+        <li><a href="#how-i-created-the-project">How I Created the Project</a></li>
       </ul>
     </li>
     <li><a href="#usage">Usage</a></li>
@@ -97,6 +98,21 @@ Treating issues as blogs, users can create, edit, and close on issues. Users can
 * [![Zod][Zod.dev]][Zod-url]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+### How I Created the Project
+This project focuses on the following 3 aspects:
+1. **GitHub OAuth for user authentication**
+   I used NextAuth.js to handle the authentication process because it **simplifies the authentication process** by providing a set of built-in providers, including GitHub. It also handles **session management**, allowing easy user session management and persist authentication state across pages and requests. 
+2. **GitHub API for issue management**
+   I used **GitHub REST API** to manage issues in the user's repositories. What I focused on wat providing the correct **authentication token** and query parameters to retrieve the desired data, which is extremely important when it comes to **issue pagination and filtering**.
+3. **Creating the user interface with NextJS and TailwindCSS**
+   I chose Next.js because it is a React framework with features like:
+   a. **Server-Side Rendering**: components are rendered on the server. This improves initial page load performance and facilitate better SEO.
+   b. **Code splitting**: code is automatically splitted into smaller bundles and loaded only when needed, which improves overall performance.
+   c. **App Router**: This simplifies the process of defining routes within the application.
+   d. **Server Actions**: By defining server actions, I can fetch data before rendering the page, which is useful for SEO and performance. In addition, I could use Suspense to handle loading states seamlessly.
+  <br>
+   I used TailwindCSS because it is a **utility-first CSS** framework that allows me to build custom designs without leaving the HTML. It also provides a set of pre-built components that I can use to build the responsive UI.
 
 
 
